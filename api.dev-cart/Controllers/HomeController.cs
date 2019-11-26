@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.IO;
 using System.Web.Mvc;
+using api.dev_cart.Entity;
 
 namespace api.dev_cart.Controllers
 {
@@ -10,8 +8,6 @@ namespace api.dev_cart.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Title = "Home Page";
-
             return View();
         }
     }

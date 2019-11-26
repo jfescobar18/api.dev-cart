@@ -1,0 +1,862 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="cat_About_Us_Sections">
+          <Key>
+            <PropertyRef Name="About_Us_Section_Id" />
+          </Key>
+          <Property Name="About_Us_Section_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="About_Us_Section_Title" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="About_Us_Section_Content" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Admin_Login">
+          <Key>
+            <PropertyRef Name="Admin_Login_Id" />
+          </Key>
+          <Property Name="Admin_Login_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Admin_Login_Username" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Admin_Login_Password" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Carts">
+          <Key>
+            <PropertyRef Name="Cart_Id" />
+          </Key>
+          <Property Name="Cart_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cart_Json_Config" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Cart_Creation_Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Offers_Image">
+          <Key>
+            <PropertyRef Name="Offers_Banner_Id" />
+          </Key>
+          <Property Name="Offers_Banner_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Offers_Banner_Img" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Orders">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+          </Key>
+          <Property Name="Order_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Cart_Id" Type="int" Nullable="false" />
+          <Property Name="Order_Client_Name" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Order_Client_Email" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="Order_Client_Phone" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="Order_Client_Address1" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Order_Client_Address2" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Order_Client_Province" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Order_Client_City" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Order_Client_Zip" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Order_Client_Comments" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Order_Creation_Date" Type="datetime" Nullable="false" />
+          <Property Name="Order_Delivered_Date" Type="datetime" />
+          <Property Name="Order_Openpay_ChargeId" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Order_Tracking_Id" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="cat_Product_Galery_Images">
+          <Key>
+            <PropertyRef Name="Product_Galery_Image_Id" />
+          </Key>
+          <Property Name="Product_Galery_Image_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Id" Type="int" Nullable="false" />
+          <Property Name="Product_Galery_Image_Img" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Product_Galery_Image_Order" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Products">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+          </Key>
+          <Property Name="Product_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Product_Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Product_Disscount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Category_Id" Type="int" />
+          <Property Name="Product_Img" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Product_Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Product_Configurations" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Product_Creation_Date" Type="datetime" />
+          <Property Name="Product_Released" Type="bit" Nullable="false" />
+          <Property Name="Product_Stock" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CMS_Dev-Cart.dbo.cat_Reviews' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="cat_Reviews">
+          <Key>
+            <PropertyRef Name="Review_Id" />
+            <PropertyRef Name="Product_Id" />
+            <PropertyRef Name="Review_Score" />
+          </Key>
+          <Property Name="Review_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Product_Id" Type="int" Nullable="false" />
+          <Property Name="Review_Score" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CMS_Dev-Cart.dbo.cat_Sepomex' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="cat_Sepomex">
+          <Key>
+            <PropertyRef Name="d_codigo" />
+          </Key>
+          <Property Name="d_codigo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="d_asenta" Type="nvarchar" MaxLength="512" />
+          <Property Name="d_tipo_asenta" Type="nvarchar" MaxLength="512" />
+          <Property Name="D_mnpio" Type="nvarchar" MaxLength="512" />
+          <Property Name="d_estado" Type="nvarchar" MaxLength="512" />
+          <Property Name="d_ciudad" Type="nvarchar" MaxLength="512" />
+          <Property Name="d_CP" Type="nvarchar" MaxLength="25" />
+          <Property Name="c_estado" Type="nvarchar" MaxLength="512" />
+          <Property Name="c_oficina" Type="nvarchar" MaxLength="512" />
+          <Property Name="c_CP" Type="nvarchar" MaxLength="512" />
+          <Property Name="c_tipo_asenta" Type="nvarchar" MaxLength="512" />
+          <Property Name="c_mnpio" Type="nvarchar" MaxLength="512" />
+          <Property Name="id_asenta_cpcons" Type="nvarchar" MaxLength="512" />
+          <Property Name="d_zona" Type="nvarchar" MaxLength="512" />
+          <Property Name="c_cve_ciudad" Type="nvarchar" MaxLength="512" />
+        </EntityType>
+        <EntityType Name="cat_Slider_Images">
+          <Key>
+            <PropertyRef Name="Slider_Image_Id" />
+          </Key>
+          <Property Name="Slider_Image_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Slider_Image_Img" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Categories">
+          <Key>
+            <PropertyRef Name="Category_Id" />
+          </Key>
+          <Property Name="Category_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Category_Name" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CMS_Dev-Cart.dbo.vw_Orders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_Orders">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+            <PropertyRef Name="Cart_Id" />
+            <PropertyRef Name="Cart_Json_Config" />
+            <PropertyRef Name="Order_Client_Name" />
+            <PropertyRef Name="Order_Client_Email" />
+            <PropertyRef Name="Order_Client_Phone" />
+            <PropertyRef Name="Order_Client_Address1" />
+            <PropertyRef Name="Order_Client_Address2" />
+            <PropertyRef Name="Order_Client_Province" />
+            <PropertyRef Name="Order_Client_City" />
+            <PropertyRef Name="Order_Client_Zip" />
+            <PropertyRef Name="Order_Client_Comments" />
+            <PropertyRef Name="Order_Creation_Date" />
+            <PropertyRef Name="Order_Openpay_ChargeId" />
+            <PropertyRef Name="Order_Payment_Status" />
+          </Key>
+          <Property Name="Order_Id" Type="int" Nullable="false" />
+          <Property Name="Cart_Id" Type="int" Nullable="false" />
+          <Property Name="Cart_Json_Config" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Order_Client_Name" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Order_Client_Email" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="Order_Client_Phone" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="Order_Client_Address1" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Order_Client_Address2" Type="nvarchar" MaxLength="1024" Nullable="false" />
+          <Property Name="Order_Client_Province" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Order_Client_City" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Order_Client_Zip" Type="nvarchar" MaxLength="11" Nullable="false" />
+          <Property Name="Order_Client_Comments" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Order_Creation_Date" Type="datetime" Nullable="false" />
+          <Property Name="Order_Delivered_Date" Type="datetime" />
+          <Property Name="Order_Openpay_ChargeId" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Order_Payment_Status" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="Order_Tracking_Id" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CMS_Dev-Cart.dbo.vw_Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_Products">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+            <PropertyRef Name="Product_Name" />
+            <PropertyRef Name="Product_Price" />
+            <PropertyRef Name="Product_Img" />
+            <PropertyRef Name="Product_Description" />
+            <PropertyRef Name="Product_Configurations" />
+            <PropertyRef Name="Product_Released" />
+            <PropertyRef Name="Product_Stock" />
+            <PropertyRef Name="Product_Ranking" />
+          </Key>
+          <Property Name="Product_Id" Type="int" Nullable="false" />
+          <Property Name="Product_Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Product_Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Product_Disscount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Category_Id" Type="int" />
+          <Property Name="Category_Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Product_Img" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Product_Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Product_Configurations" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Product_Creation_Date" Type="datetime" />
+          <Property Name="Product_Released" Type="bit" Nullable="false" />
+          <Property Name="Product_Stock" Type="int" Nullable="false" />
+          <Property Name="Product_Ranking" Type="decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Product_Price_Total" Type="decimal" Precision="26" Scale="8" />
+          <Property Name="Product_Is_New" Type="bit" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'CMS_Dev-Cart.dbo.vw_Sepomex_Info' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_Sepomex_Info">
+          <Key>
+            <PropertyRef Name="d_codigo" />
+          </Key>
+          <Property Name="d_codigo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="d_asenta" Type="nvarchar" MaxLength="512" />
+          <Property Name="D_mnpio" Type="nvarchar" MaxLength="512" />
+          <Property Name="d_estado" Type="nvarchar" MaxLength="512" />
+          <Property Name="d_ciudad" Type="nvarchar" MaxLength="512" />
+        </EntityType>
+        <Association Name="FK__cat_Order__Cart___14270015">
+          <End Role="cat_Carts" Type="Self.cat_Carts" Multiplicity="1" />
+          <End Role="cat_Orders" Type="Self.cat_Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cat_Carts">
+              <PropertyRef Name="Cart_Id" />
+            </Principal>
+            <Dependent Role="cat_Orders">
+              <PropertyRef Name="Cart_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cat_Produ__Categ__0C85DE4D">
+          <End Role="cat_Categories" Type="Self.cat_Categories" Multiplicity="0..1" />
+          <End Role="cat_Products" Type="Self.cat_Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cat_Categories">
+              <PropertyRef Name="Category_Id" />
+            </Principal>
+            <Dependent Role="cat_Products">
+              <PropertyRef Name="Category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cat_Produ__Produ__17F790F9">
+          <End Role="cat_Products" Type="Self.cat_Products" Multiplicity="1" />
+          <End Role="cat_Product_Galery_Images" Type="Self.cat_Product_Galery_Images" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cat_Products">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="cat_Product_Galery_Images">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cat_Revie__Produ__19DFD96B">
+          <End Role="cat_Products" Type="Self.cat_Products" Multiplicity="1" />
+          <End Role="cat_Reviews" Type="Self.cat_Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cat_Products">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="cat_Reviews">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ModelStoreContainer">
+          <EntitySet Name="cat_About_Us_Sections" EntityType="Self.cat_About_Us_Sections" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cat_Admin_Login" EntityType="Self.cat_Admin_Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cat_Carts" EntityType="Self.cat_Carts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cat_Offers_Image" EntityType="Self.cat_Offers_Image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cat_Orders" EntityType="Self.cat_Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cat_Product_Galery_Images" EntityType="Self.cat_Product_Galery_Images" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cat_Products" EntityType="Self.cat_Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cat_Slider_Images" EntityType="Self.cat_Slider_Images" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cat_Categories" EntityType="Self.cat_Categories" Schema="lookup" store:Type="Tables" />
+          <EntitySet Name="cat_Reviews" EntityType="Self.cat_Reviews" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [cat_Reviews].[Review_Id] AS [Review_Id], 
+    [cat_Reviews].[Product_Id] AS [Product_Id], 
+    [cat_Reviews].[Review_Score] AS [Review_Score]
+    FROM [dbo].[cat_Reviews] AS [cat_Reviews]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="cat_Sepomex" EntityType="Self.cat_Sepomex" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [cat_Sepomex].[d_codigo] AS [d_codigo], 
+    [cat_Sepomex].[d_asenta] AS [d_asenta], 
+    [cat_Sepomex].[d_tipo_asenta] AS [d_tipo_asenta], 
+    [cat_Sepomex].[D_mnpio] AS [D_mnpio], 
+    [cat_Sepomex].[d_estado] AS [d_estado], 
+    [cat_Sepomex].[d_ciudad] AS [d_ciudad], 
+    [cat_Sepomex].[d_CP] AS [d_CP], 
+    [cat_Sepomex].[c_estado] AS [c_estado], 
+    [cat_Sepomex].[c_oficina] AS [c_oficina], 
+    [cat_Sepomex].[c_CP] AS [c_CP], 
+    [cat_Sepomex].[c_tipo_asenta] AS [c_tipo_asenta], 
+    [cat_Sepomex].[c_mnpio] AS [c_mnpio], 
+    [cat_Sepomex].[id_asenta_cpcons] AS [id_asenta_cpcons], 
+    [cat_Sepomex].[d_zona] AS [d_zona], 
+    [cat_Sepomex].[c_cve_ciudad] AS [c_cve_ciudad]
+    FROM [dbo].[cat_Sepomex] AS [cat_Sepomex]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_Orders" EntityType="Self.vw_Orders" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_Orders].[Order_Id] AS [Order_Id], 
+    [vw_Orders].[Cart_Id] AS [Cart_Id], 
+    [vw_Orders].[Cart_Json_Config] AS [Cart_Json_Config], 
+    [vw_Orders].[Order_Client_Name] AS [Order_Client_Name], 
+    [vw_Orders].[Order_Client_Email] AS [Order_Client_Email], 
+    [vw_Orders].[Order_Client_Phone] AS [Order_Client_Phone], 
+    [vw_Orders].[Order_Client_Address1] AS [Order_Client_Address1], 
+    [vw_Orders].[Order_Client_Address2] AS [Order_Client_Address2], 
+    [vw_Orders].[Order_Client_Province] AS [Order_Client_Province], 
+    [vw_Orders].[Order_Client_City] AS [Order_Client_City], 
+    [vw_Orders].[Order_Client_Zip] AS [Order_Client_Zip], 
+    [vw_Orders].[Order_Client_Comments] AS [Order_Client_Comments], 
+    [vw_Orders].[Order_Creation_Date] AS [Order_Creation_Date], 
+    [vw_Orders].[Order_Delivered_Date] AS [Order_Delivered_Date], 
+    [vw_Orders].[Order_Openpay_ChargeId] AS [Order_Openpay_ChargeId], 
+    [vw_Orders].[Order_Payment_Status] AS [Order_Payment_Status], 
+    [vw_Orders].[Order_Tracking_Id] AS [Order_Tracking_Id]
+    FROM [dbo].[vw_Orders] AS [vw_Orders]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_Products" EntityType="Self.vw_Products" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_Products].[Product_Id] AS [Product_Id], 
+    [vw_Products].[Product_Name] AS [Product_Name], 
+    [vw_Products].[Product_Price] AS [Product_Price], 
+    [vw_Products].[Product_Disscount] AS [Product_Disscount], 
+    [vw_Products].[Category_Id] AS [Category_Id], 
+    [vw_Products].[Category_Name] AS [Category_Name], 
+    [vw_Products].[Product_Img] AS [Product_Img], 
+    [vw_Products].[Product_Description] AS [Product_Description], 
+    [vw_Products].[Product_Configurations] AS [Product_Configurations], 
+    [vw_Products].[Product_Creation_Date] AS [Product_Creation_Date], 
+    [vw_Products].[Product_Released] AS [Product_Released], 
+    [vw_Products].[Product_Stock] AS [Product_Stock], 
+    [vw_Products].[Product_Ranking] AS [Product_Ranking], 
+    [vw_Products].[Product_Price_Total] AS [Product_Price_Total], 
+    [vw_Products].[Product_Is_New] AS [Product_Is_New]
+    FROM [dbo].[vw_Products] AS [vw_Products]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_Sepomex_Info" EntityType="Self.vw_Sepomex_Info" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_Sepomex_Info].[d_codigo] AS [d_codigo], 
+    [vw_Sepomex_Info].[d_asenta] AS [d_asenta], 
+    [vw_Sepomex_Info].[D_mnpio] AS [D_mnpio], 
+    [vw_Sepomex_Info].[d_estado] AS [d_estado], 
+    [vw_Sepomex_Info].[d_ciudad] AS [d_ciudad]
+    FROM [dbo].[vw_Sepomex_Info] AS [vw_Sepomex_Info]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK__cat_Order__Cart___14270015" Association="Self.FK__cat_Order__Cart___14270015">
+            <End Role="cat_Carts" EntitySet="cat_Carts" />
+            <End Role="cat_Orders" EntitySet="cat_Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cat_Produ__Categ__0C85DE4D" Association="Self.FK__cat_Produ__Categ__0C85DE4D">
+            <End Role="cat_Categories" EntitySet="cat_Categories" />
+            <End Role="cat_Products" EntitySet="cat_Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cat_Produ__Produ__17F790F9" Association="Self.FK__cat_Produ__Produ__17F790F9">
+            <End Role="cat_Products" EntitySet="cat_Products" />
+            <End Role="cat_Product_Galery_Images" EntitySet="cat_Product_Galery_Images" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cat_Revie__Produ__19DFD96B" Association="Self.FK__cat_Revie__Produ__19DFD96B">
+            <End Role="cat_Products" EntitySet="cat_Products" />
+            <End Role="cat_Reviews" EntitySet="cat_Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="cat_About_Us_Sections">
+          <Key>
+            <PropertyRef Name="About_Us_Section_Id" />
+          </Key>
+          <Property Name="About_Us_Section_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="About_Us_Section_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="About_Us_Section_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Admin_Login">
+          <Key>
+            <PropertyRef Name="Admin_Login_Id" />
+          </Key>
+          <Property Name="Admin_Login_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Admin_Login_Username" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Admin_Login_Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Carts">
+          <Key>
+            <PropertyRef Name="Cart_Id" />
+          </Key>
+          <Property Name="Cart_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cart_Json_Config" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cart_Creation_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="cat_Orders" Relationship="Self.FK__cat_Order__Cart___14270015" FromRole="cat_Carts" ToRole="cat_Orders" />
+        </EntityType>
+        <EntityType Name="cat_Offers_Image">
+          <Key>
+            <PropertyRef Name="Offers_Banner_Id" />
+          </Key>
+          <Property Name="Offers_Banner_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Offers_Banner_Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Orders">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+          </Key>
+          <Property Name="Order_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Cart_Id" Type="Int32" Nullable="false" />
+          <Property Name="Order_Client_Name" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Email" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Phone" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Address1" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Address2" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Province" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Zip" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Creation_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Order_Delivered_Date" Type="DateTime" Precision="3" />
+          <Property Name="Order_Openpay_ChargeId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Tracking_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="cat_Carts" Relationship="Self.FK__cat_Order__Cart___14270015" FromRole="cat_Orders" ToRole="cat_Carts" />
+        </EntityType>
+        <EntityType Name="cat_Product_Galery_Images">
+          <Key>
+            <PropertyRef Name="Product_Galery_Image_Id" />
+          </Key>
+          <Property Name="Product_Galery_Image_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Id" Type="Int32" Nullable="false" />
+          <Property Name="Product_Galery_Image_Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_Galery_Image_Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cat_Products" Relationship="Self.FK__cat_Produ__Produ__17F790F9" FromRole="cat_Product_Galery_Images" ToRole="cat_Products" />
+        </EntityType>
+        <EntityType Name="cat_Products">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+          </Key>
+          <Property Name="Product_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Product_Disscount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Category_Id" Type="Int32" />
+          <Property Name="Product_Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_Configurations" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_Creation_Date" Type="DateTime" Precision="3" />
+          <Property Name="Product_Released" Type="Boolean" Nullable="false" />
+          <Property Name="Product_Stock" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cat_Product_Galery_Images" Relationship="Self.FK__cat_Produ__Produ__17F790F9" FromRole="cat_Products" ToRole="cat_Product_Galery_Images" />
+          <NavigationProperty Name="cat_Categories" Relationship="Self.FK__cat_Produ__Categ__0C85DE4D" FromRole="cat_Products" ToRole="cat_Categories" />
+          <NavigationProperty Name="cat_Reviews" Relationship="Self.FK__cat_Revie__Produ__19DFD96B" FromRole="cat_Products" ToRole="cat_Reviews" />
+        </EntityType>
+        <EntityType Name="cat_Slider_Images">
+          <Key>
+            <PropertyRef Name="Slider_Image_Id" />
+          </Key>
+          <Property Name="Slider_Image_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Slider_Image_Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Categories">
+          <Key>
+            <PropertyRef Name="Category_Id" />
+          </Key>
+          <Property Name="Category_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="cat_Products" Relationship="Self.FK__cat_Produ__Categ__0C85DE4D" FromRole="cat_Categories" ToRole="cat_Products" />
+        </EntityType>
+        <EntityType Name="cat_Reviews">
+          <Key>
+            <PropertyRef Name="Review_Id" />
+            <PropertyRef Name="Product_Id" />
+            <PropertyRef Name="Review_Score" />
+          </Key>
+          <Property Name="Review_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Id" Type="Int32" Nullable="false" />
+          <Property Name="Review_Score" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cat_Products" Relationship="Self.FK__cat_Revie__Produ__19DFD96B" FromRole="cat_Reviews" ToRole="cat_Products" />
+        </EntityType>
+        <EntityType Name="cat_Sepomex">
+          <Key>
+            <PropertyRef Name="d_codigo" />
+          </Key>
+          <Property Name="d_codigo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="d_asenta" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="d_tipo_asenta" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="D_mnpio" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="d_estado" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="d_ciudad" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="d_CP" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="c_estado" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="c_oficina" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="c_CP" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="c_tipo_asenta" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="c_mnpio" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="id_asenta_cpcons" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="d_zona" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="c_cve_ciudad" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vw_Orders">
+          <Key>
+            <PropertyRef Name="Order_Id" />
+            <PropertyRef Name="Cart_Id" />
+            <PropertyRef Name="Cart_Json_Config" />
+            <PropertyRef Name="Order_Client_Name" />
+            <PropertyRef Name="Order_Client_Email" />
+            <PropertyRef Name="Order_Client_Phone" />
+            <PropertyRef Name="Order_Client_Address1" />
+            <PropertyRef Name="Order_Client_Address2" />
+            <PropertyRef Name="Order_Client_Province" />
+            <PropertyRef Name="Order_Client_City" />
+            <PropertyRef Name="Order_Client_Zip" />
+            <PropertyRef Name="Order_Client_Comments" />
+            <PropertyRef Name="Order_Creation_Date" />
+            <PropertyRef Name="Order_Openpay_ChargeId" />
+            <PropertyRef Name="Order_Payment_Status" />
+          </Key>
+          <Property Name="Order_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cart_Id" Type="Int32" Nullable="false" />
+          <Property Name="Cart_Json_Config" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Name" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Email" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Phone" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Address1" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Address2" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Province" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Zip" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Client_Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Creation_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Order_Delivered_Date" Type="DateTime" Precision="3" />
+          <Property Name="Order_Openpay_ChargeId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Order_Payment_Status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Order_Tracking_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vw_Products">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+            <PropertyRef Name="Product_Name" />
+            <PropertyRef Name="Product_Price" />
+            <PropertyRef Name="Product_Img" />
+            <PropertyRef Name="Product_Description" />
+            <PropertyRef Name="Product_Configurations" />
+            <PropertyRef Name="Product_Released" />
+            <PropertyRef Name="Product_Stock" />
+            <PropertyRef Name="Product_Ranking" />
+          </Key>
+          <Property Name="Product_Id" Type="Int32" Nullable="false" />
+          <Property Name="Product_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Product_Disscount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Category_Id" Type="Int32" />
+          <Property Name="Category_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_Configurations" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_Creation_Date" Type="DateTime" Precision="3" />
+          <Property Name="Product_Released" Type="Boolean" Nullable="false" />
+          <Property Name="Product_Stock" Type="Int32" Nullable="false" />
+          <Property Name="Product_Ranking" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Product_Price_Total" Type="Decimal" Precision="26" Scale="8" />
+          <Property Name="Product_Is_New" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="vw_Sepomex_Info">
+          <Key>
+            <PropertyRef Name="d_codigo" />
+          </Key>
+          <Property Name="d_codigo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="d_asenta" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="D_mnpio" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="d_estado" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="d_ciudad" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__cat_Order__Cart___14270015">
+          <End Role="cat_Carts" Type="Self.cat_Carts" Multiplicity="1" />
+          <End Role="cat_Orders" Type="Self.cat_Orders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cat_Carts">
+              <PropertyRef Name="Cart_Id" />
+            </Principal>
+            <Dependent Role="cat_Orders">
+              <PropertyRef Name="Cart_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cat_Produ__Produ__17F790F9">
+          <End Role="cat_Products" Type="Self.cat_Products" Multiplicity="1" />
+          <End Role="cat_Product_Galery_Images" Type="Self.cat_Product_Galery_Images" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cat_Products">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="cat_Product_Galery_Images">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cat_Produ__Categ__0C85DE4D">
+          <End Role="cat_Categories" Type="Self.cat_Categories" Multiplicity="0..1" />
+          <End Role="cat_Products" Type="Self.cat_Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cat_Categories">
+              <PropertyRef Name="Category_Id" />
+            </Principal>
+            <Dependent Role="cat_Products">
+              <PropertyRef Name="Category_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__cat_Revie__Produ__19DFD96B">
+          <End Role="cat_Products" Type="Self.cat_Products" Multiplicity="1" />
+          <End Role="cat_Reviews" Type="Self.cat_Reviews" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="cat_Products">
+              <PropertyRef Name="Product_Id" />
+            </Principal>
+            <Dependent Role="cat_Reviews">
+              <PropertyRef Name="Product_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cat_About_Us_Sections" EntityType="Self.cat_About_Us_Sections" />
+          <EntitySet Name="cat_Admin_Login" EntityType="Self.cat_Admin_Login" />
+          <EntitySet Name="cat_Carts" EntityType="Self.cat_Carts" />
+          <EntitySet Name="cat_Offers_Image" EntityType="Self.cat_Offers_Image" />
+          <EntitySet Name="cat_Orders" EntityType="Self.cat_Orders" />
+          <EntitySet Name="cat_Product_Galery_Images" EntityType="Self.cat_Product_Galery_Images" />
+          <EntitySet Name="cat_Products" EntityType="Self.cat_Products" />
+          <EntitySet Name="cat_Slider_Images" EntityType="Self.cat_Slider_Images" />
+          <EntitySet Name="cat_Categories" EntityType="Self.cat_Categories" />
+          <EntitySet Name="cat_Reviews" EntityType="Self.cat_Reviews" />
+          <EntitySet Name="cat_Sepomex" EntityType="Self.cat_Sepomex" />
+          <EntitySet Name="vw_Orders" EntityType="Self.vw_Orders" />
+          <EntitySet Name="vw_Products" EntityType="Self.vw_Products" />
+          <EntitySet Name="vw_Sepomex_Info" EntityType="Self.vw_Sepomex_Info" />
+          <AssociationSet Name="FK__cat_Order__Cart___14270015" Association="Self.FK__cat_Order__Cart___14270015">
+            <End Role="cat_Carts" EntitySet="cat_Carts" />
+            <End Role="cat_Orders" EntitySet="cat_Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cat_Produ__Produ__17F790F9" Association="Self.FK__cat_Produ__Produ__17F790F9">
+            <End Role="cat_Products" EntitySet="cat_Products" />
+            <End Role="cat_Product_Galery_Images" EntitySet="cat_Product_Galery_Images" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cat_Produ__Categ__0C85DE4D" Association="Self.FK__cat_Produ__Categ__0C85DE4D">
+            <End Role="cat_Categories" EntitySet="cat_Categories" />
+            <End Role="cat_Products" EntitySet="cat_Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cat_Revie__Produ__19DFD96B" Association="Self.FK__cat_Revie__Produ__19DFD96B">
+            <End Role="cat_Products" EntitySet="cat_Products" />
+            <End Role="cat_Reviews" EntitySet="cat_Reviews" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ModelStoreContainer" CdmEntityContainer="Entities">
+          <EntitySetMapping Name="cat_About_Us_Sections">
+            <EntityTypeMapping TypeName="Model.cat_About_Us_Sections">
+              <MappingFragment StoreEntitySet="cat_About_Us_Sections">
+                <ScalarProperty Name="About_Us_Section_Id" ColumnName="About_Us_Section_Id" />
+                <ScalarProperty Name="About_Us_Section_Title" ColumnName="About_Us_Section_Title" />
+                <ScalarProperty Name="About_Us_Section_Content" ColumnName="About_Us_Section_Content" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Admin_Login">
+            <EntityTypeMapping TypeName="Model.cat_Admin_Login">
+              <MappingFragment StoreEntitySet="cat_Admin_Login">
+                <ScalarProperty Name="Admin_Login_Id" ColumnName="Admin_Login_Id" />
+                <ScalarProperty Name="Admin_Login_Username" ColumnName="Admin_Login_Username" />
+                <ScalarProperty Name="Admin_Login_Password" ColumnName="Admin_Login_Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Carts">
+            <EntityTypeMapping TypeName="Model.cat_Carts">
+              <MappingFragment StoreEntitySet="cat_Carts">
+                <ScalarProperty Name="Cart_Id" ColumnName="Cart_Id" />
+                <ScalarProperty Name="Cart_Json_Config" ColumnName="Cart_Json_Config" />
+                <ScalarProperty Name="Cart_Creation_Date" ColumnName="Cart_Creation_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Offers_Image">
+            <EntityTypeMapping TypeName="Model.cat_Offers_Image">
+              <MappingFragment StoreEntitySet="cat_Offers_Image">
+                <ScalarProperty Name="Offers_Banner_Id" ColumnName="Offers_Banner_Id" />
+                <ScalarProperty Name="Offers_Banner_Img" ColumnName="Offers_Banner_Img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Orders">
+            <EntityTypeMapping TypeName="Model.cat_Orders">
+              <MappingFragment StoreEntitySet="cat_Orders">
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="Cart_Id" ColumnName="Cart_Id" />
+                <ScalarProperty Name="Order_Client_Name" ColumnName="Order_Client_Name" />
+                <ScalarProperty Name="Order_Client_Email" ColumnName="Order_Client_Email" />
+                <ScalarProperty Name="Order_Client_Phone" ColumnName="Order_Client_Phone" />
+                <ScalarProperty Name="Order_Client_Address1" ColumnName="Order_Client_Address1" />
+                <ScalarProperty Name="Order_Client_Address2" ColumnName="Order_Client_Address2" />
+                <ScalarProperty Name="Order_Client_Province" ColumnName="Order_Client_Province" />
+                <ScalarProperty Name="Order_Client_City" ColumnName="Order_Client_City" />
+                <ScalarProperty Name="Order_Client_Zip" ColumnName="Order_Client_Zip" />
+                <ScalarProperty Name="Order_Client_Comments" ColumnName="Order_Client_Comments" />
+                <ScalarProperty Name="Order_Creation_Date" ColumnName="Order_Creation_Date" />
+                <ScalarProperty Name="Order_Delivered_Date" ColumnName="Order_Delivered_Date" />
+                <ScalarProperty Name="Order_Openpay_ChargeId" ColumnName="Order_Openpay_ChargeId" />
+                <ScalarProperty Name="Order_Tracking_Id" ColumnName="Order_Tracking_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Product_Galery_Images">
+            <EntityTypeMapping TypeName="Model.cat_Product_Galery_Images">
+              <MappingFragment StoreEntitySet="cat_Product_Galery_Images">
+                <ScalarProperty Name="Product_Galery_Image_Id" ColumnName="Product_Galery_Image_Id" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="Product_Galery_Image_Img" ColumnName="Product_Galery_Image_Img" />
+                <ScalarProperty Name="Product_Galery_Image_Order" ColumnName="Product_Galery_Image_Order" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Products">
+            <EntityTypeMapping TypeName="Model.cat_Products">
+              <MappingFragment StoreEntitySet="cat_Products">
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Product_Price" ColumnName="Product_Price" />
+                <ScalarProperty Name="Product_Disscount" ColumnName="Product_Disscount" />
+                <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
+                <ScalarProperty Name="Product_Img" ColumnName="Product_Img" />
+                <ScalarProperty Name="Product_Description" ColumnName="Product_Description" />
+                <ScalarProperty Name="Product_Configurations" ColumnName="Product_Configurations" />
+                <ScalarProperty Name="Product_Creation_Date" ColumnName="Product_Creation_Date" />
+                <ScalarProperty Name="Product_Released" ColumnName="Product_Released" />
+                <ScalarProperty Name="Product_Stock" ColumnName="Product_Stock" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Slider_Images">
+            <EntityTypeMapping TypeName="Model.cat_Slider_Images">
+              <MappingFragment StoreEntitySet="cat_Slider_Images">
+                <ScalarProperty Name="Slider_Image_Id" ColumnName="Slider_Image_Id" />
+                <ScalarProperty Name="Slider_Image_Img" ColumnName="Slider_Image_Img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Categories">
+            <EntityTypeMapping TypeName="Model.cat_Categories">
+              <MappingFragment StoreEntitySet="cat_Categories">
+                <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Reviews">
+            <EntityTypeMapping TypeName="Model.cat_Reviews">
+              <MappingFragment StoreEntitySet="cat_Reviews">
+                <ScalarProperty Name="Review_Id" ColumnName="Review_Id" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="Review_Score" ColumnName="Review_Score" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Sepomex">
+            <EntityTypeMapping TypeName="Model.cat_Sepomex">
+              <MappingFragment StoreEntitySet="cat_Sepomex">
+                <ScalarProperty Name="d_codigo" ColumnName="d_codigo" />
+                <ScalarProperty Name="d_asenta" ColumnName="d_asenta" />
+                <ScalarProperty Name="d_tipo_asenta" ColumnName="d_tipo_asenta" />
+                <ScalarProperty Name="D_mnpio" ColumnName="D_mnpio" />
+                <ScalarProperty Name="d_estado" ColumnName="d_estado" />
+                <ScalarProperty Name="d_ciudad" ColumnName="d_ciudad" />
+                <ScalarProperty Name="d_CP" ColumnName="d_CP" />
+                <ScalarProperty Name="c_estado" ColumnName="c_estado" />
+                <ScalarProperty Name="c_oficina" ColumnName="c_oficina" />
+                <ScalarProperty Name="c_CP" ColumnName="c_CP" />
+                <ScalarProperty Name="c_tipo_asenta" ColumnName="c_tipo_asenta" />
+                <ScalarProperty Name="c_mnpio" ColumnName="c_mnpio" />
+                <ScalarProperty Name="id_asenta_cpcons" ColumnName="id_asenta_cpcons" />
+                <ScalarProperty Name="d_zona" ColumnName="d_zona" />
+                <ScalarProperty Name="c_cve_ciudad" ColumnName="c_cve_ciudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Orders">
+            <EntityTypeMapping TypeName="Model.vw_Orders">
+              <MappingFragment StoreEntitySet="vw_Orders">
+                <ScalarProperty Name="Order_Id" ColumnName="Order_Id" />
+                <ScalarProperty Name="Cart_Id" ColumnName="Cart_Id" />
+                <ScalarProperty Name="Cart_Json_Config" ColumnName="Cart_Json_Config" />
+                <ScalarProperty Name="Order_Client_Name" ColumnName="Order_Client_Name" />
+                <ScalarProperty Name="Order_Client_Email" ColumnName="Order_Client_Email" />
+                <ScalarProperty Name="Order_Client_Phone" ColumnName="Order_Client_Phone" />
+                <ScalarProperty Name="Order_Client_Address1" ColumnName="Order_Client_Address1" />
+                <ScalarProperty Name="Order_Client_Address2" ColumnName="Order_Client_Address2" />
+                <ScalarProperty Name="Order_Client_Province" ColumnName="Order_Client_Province" />
+                <ScalarProperty Name="Order_Client_City" ColumnName="Order_Client_City" />
+                <ScalarProperty Name="Order_Client_Zip" ColumnName="Order_Client_Zip" />
+                <ScalarProperty Name="Order_Client_Comments" ColumnName="Order_Client_Comments" />
+                <ScalarProperty Name="Order_Creation_Date" ColumnName="Order_Creation_Date" />
+                <ScalarProperty Name="Order_Delivered_Date" ColumnName="Order_Delivered_Date" />
+                <ScalarProperty Name="Order_Openpay_ChargeId" ColumnName="Order_Openpay_ChargeId" />
+                <ScalarProperty Name="Order_Payment_Status" ColumnName="Order_Payment_Status" />
+                <ScalarProperty Name="Order_Tracking_Id" ColumnName="Order_Tracking_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Products">
+            <EntityTypeMapping TypeName="Model.vw_Products">
+              <MappingFragment StoreEntitySet="vw_Products">
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Product_Price" ColumnName="Product_Price" />
+                <ScalarProperty Name="Product_Disscount" ColumnName="Product_Disscount" />
+                <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+                <ScalarProperty Name="Product_Img" ColumnName="Product_Img" />
+                <ScalarProperty Name="Product_Description" ColumnName="Product_Description" />
+                <ScalarProperty Name="Product_Configurations" ColumnName="Product_Configurations" />
+                <ScalarProperty Name="Product_Creation_Date" ColumnName="Product_Creation_Date" />
+                <ScalarProperty Name="Product_Released" ColumnName="Product_Released" />
+                <ScalarProperty Name="Product_Stock" ColumnName="Product_Stock" />
+                <ScalarProperty Name="Product_Ranking" ColumnName="Product_Ranking" />
+                <ScalarProperty Name="Product_Price_Total" ColumnName="Product_Price_Total" />
+                <ScalarProperty Name="Product_Is_New" ColumnName="Product_Is_New" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_Sepomex_Info">
+            <EntityTypeMapping TypeName="Model.vw_Sepomex_Info">
+              <MappingFragment StoreEntitySet="vw_Sepomex_Info">
+                <ScalarProperty Name="d_codigo" ColumnName="d_codigo" />
+                <ScalarProperty Name="d_asenta" ColumnName="d_asenta" />
+                <ScalarProperty Name="D_mnpio" ColumnName="D_mnpio" />
+                <ScalarProperty Name="d_estado" ColumnName="d_estado" />
+                <ScalarProperty Name="d_ciudad" ColumnName="d_ciudad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
