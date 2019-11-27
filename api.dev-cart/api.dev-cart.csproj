@@ -261,6 +261,11 @@
     <Content Include="Mailing\orderConfirmedEmail.html" />
     <Content Include="Mailing\paymentOderEmail.html" />
     <Content Include="Mailing\trackingIdEmail.html" />
+    <Content Include="OfferImage\off-banner.jpg" />
+    <Content Include="SliderImages\slider1.jpg" />
+    <Content Include="SliderImages\slider2.jpg" />
+    <Content Include="SliderImages\slider3.jpg" />
+    <Content Include="SliderImages\slider4.jpg" />
     <Content Include="SQL\05102019_Create_Database.sql" />
     <Content Include="SQL\05102019_Insert_cat_Sepomex_R1.sql" />
     <Content Include="SQL\05102019_Insert_cat_Sepomex_R2.sql" />

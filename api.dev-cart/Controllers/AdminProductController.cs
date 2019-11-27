@@ -19,7 +19,7 @@ namespace api.dev_cart.Controllers
     {
         #region Categories
         [HttpPost]
-        [Route("AdminContent/AddCategory")]
+        [Route("AdminProduct/AddCategory")]
         public async Task<HttpResponseMessage> AddCategory([FromBody] cat_Categories json)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -49,7 +49,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpPost]
-        [Route("AdminContent/UpdateCategory")]
+        [Route("AdminProduct/UpdateCategory")]
         public async Task<HttpResponseMessage> UpdateCategory([FromBody] cat_Categories json)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -76,7 +76,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpPost]
-        [Route("AdminContent/DeleteCategory")]
+        [Route("AdminProduct/DeleteCategory")]
         public async Task<HttpResponseMessage> DeleteCategory([FromBody] cat_Categories json)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -103,7 +103,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpGet]
-        [Route("AdminContent/GetCategories")]
+        [Route("AdminProduct/GetCategories")]
         public async Task<List<cat_Categories>> GetCategories()
         {
             Entities entity = new Entities();
@@ -115,7 +115,7 @@ namespace api.dev_cart.Controllers
 
         #region Products
         [HttpPost]
-        [Route("AdminContent/AddProduct")]
+        [Route("AdminProduct/AddProduct")]
         public async Task<HttpResponseMessage> AddProduct()
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -157,7 +157,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpPost]
-        [Route("AdminContent/UpdateProduct")]
+        [Route("AdminProduct/UpdateProduct")]
         public async Task<HttpResponseMessage> UpdateProduct()
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -209,7 +209,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpPost]
-        [Route("AdminContent/DeleteProduct")]
+        [Route("AdminProduct/DeleteProduct")]
         public async Task<HttpResponseMessage> DeleteProduct([FromBody] cat_Products json)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -239,7 +239,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpGet]
-        [Route("AdminContent/GetProducts")]
+        [Route("AdminProduct/GetProducts")]
         public async Task<List<vw_Products>> GetProducts()
         {
             Entities entity = new Entities();
@@ -249,7 +249,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpGet]
-        [Route("AdminContent/GetProduct/{Product_Id}")]
+        [Route("AdminProduct/GetProduct/{Product_Id}")]
         public async Task<vw_Products> GetProduct(int Product_Id)
         {
             Entities entity = new Entities();
@@ -259,7 +259,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpGet]
-        [Route("AdminContent/GetProducts/{Product_Ids}")]
+        [Route("AdminProduct/GetProducts/{Product_Ids}")]
         public async Task<List<vw_Products>> GetProducts(string Product_Ids)
         {
             Entities entity = new Entities();
@@ -280,7 +280,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpGet]
-        [Route("AdminContent/GetAllProducts")]
+        [Route("AdminProduct/GetAllProducts")]
         public async Task<List<vw_Products>> GetAllProducts()
         {
             Entities entity = new Entities();
@@ -290,7 +290,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpGet]
-        [Route("AdminContent/GetDiscount_Products")]
+        [Route("AdminProduct/GetDiscount_Products")]
         public async Task<List<vw_Products>> GetDiscount_Products()
         {
             Entities entity = new Entities();
@@ -300,7 +300,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpGet]
-        [Route("AdminContent/GetNew_Products")]
+        [Route("AdminProduct/GetNew_Products")]
         public async Task<List<vw_Products>> GetNew_Products()
         {
             Entities entity = new Entities();
@@ -310,7 +310,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpGet]
-        [Route("AdminContent/GetSoon_Products")]
+        [Route("AdminProduct/GetSoon_Products")]
         public async Task<List<vw_Products>> GetSoon_Products()
         {
             Entities entity = new Entities();
@@ -320,7 +320,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpGet]
-        [Route("AdminContent/Search_Products/{Word}")]
+        [Route("AdminProduct/Search_Products/{Word}")]
         public async Task<List<vw_Products>> Search_Products(string Word)
         {
             Entities entity = new Entities();
@@ -345,7 +345,7 @@ namespace api.dev_cart.Controllers
 
         #region Cart
         [HttpPost]
-        [Route("AdminContent/AddCart")]
+        [Route("AdminProduct/AddCart")]
         public async Task<HttpResponseMessage> AddCart([FromBody] cat_Carts json)
         {
             Entities entity = new Entities();
@@ -367,7 +367,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpPost]
-        [Route("AdminContent/UpdateCart")]
+        [Route("AdminProduct/UpdateCart")]
         public async Task<HttpResponseMessage> UpdateCart([FromBody] cat_Carts json)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -394,7 +394,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpPost]
-        [Route("AdminContent/DeleteCart")]
+        [Route("AdminProduct/DeleteCart")]
         public async Task<HttpResponseMessage> DeleteCart([FromBody] int Cart_Id)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -421,7 +421,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpGet]
-        [Route("AdminContent/GetCart/{Cart_Id}")]
+        [Route("AdminProduct/GetCart/{Cart_Id}")]
         public async Task<List<cat_Carts>> GetCart(int Cart_Id)
         {
             Entities entity = new Entities();
@@ -433,7 +433,7 @@ namespace api.dev_cart.Controllers
 
         #region Orders
         [HttpPost]
-        [Route("AdminContent/UpdateOrder")]
+        [Route("AdminProduct/UpdateOrder")]
         public async Task<HttpResponseMessage> UpdateOrder([FromBody] cat_Orders json)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -472,7 +472,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpPost]
-        [Route("AdminContent/SendTrackingId")]
+        [Route("AdminProduct/SendTrackingId")]
         public async Task<HttpResponseMessage> SendTrackingId([FromBody] TrackingInformation json)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -500,7 +500,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpPost]
-        [Route("AdminContent/DeleteOrder")]
+        [Route("AdminProduct/DeleteOrder")]
         public async Task<HttpResponseMessage> DeleteOrder([FromBody] int Order_Id)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -527,7 +527,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpGet]
-        [Route("AdminContent/GetOders")]
+        [Route("AdminProduct/GetOders")]
         public async Task<List<vw_Orders>> GetOders()
         {
             Entities entity = new Entities();
@@ -546,7 +546,7 @@ namespace api.dev_cart.Controllers
 
         #region Product_Galery_Images
         [HttpPost]
-        [Route("AdminContent/AddProductGaleryImage")]
+        [Route("AdminProduct/AddProductGaleryImage")]
         public async Task<HttpResponseMessage> AddProductGaleryImage()
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -581,7 +581,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpPost]
-        [Route("AdminContent/UpdateProductGaleryImage")]
+        [Route("AdminProduct/UpdateProductGaleryImage")]
         public async Task<HttpResponseMessage> UpdateProductGaleryImage()
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -625,7 +625,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpPost]
-        [Route("AdminContent/DeleteProductGaleryImage")]
+        [Route("AdminProduct/DeleteProductGaleryImage")]
         public async Task<HttpResponseMessage> DeleteProductGaleryImage([FromBody] cat_Product_Galery_Images json)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
@@ -655,7 +655,7 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpGet]
-        [Route("AdminContent/GetProductGaleryImages/{Product_Id}")]
+        [Route("AdminProduct/GetProductGaleryImages/{Product_Id}")]
         public async Task<List<cat_Product_Galery_Images>> GetProductGaleryImages(int Product_Id)
         {
             Entities entity = new Entities();

@@ -32,6 +32,17 @@ CREATE TABLE [dbo].[cat_Slider_Images](
 )
 GO
 
+INSERT INTO [dbo].[cat_Slider_Images]
+(
+	[Slider_Image_Img]
+)
+VALUES
+('SliderImages/slider1.jpg'),
+('SliderImages/slider2.jpg'),
+('SliderImages/slider3.jpg'),
+('SliderImages/slider4.jpg')
+GO
+
 CREATE TABLE [dbo].[cat_About_Us_Sections](
 	[About_Us_Section_Id][int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	[About_Us_Section_Title][nvarchar](255) NOT NULL,
@@ -42,6 +53,16 @@ GO
 CREATE TABLE [dbo].[cat_Offers_Image](
 	[Offers_Banner_Id][int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
 	[Offers_Banner_Img][nvarchar](max) NOT NULL
+)
+GO
+
+INSERT INTO [dbo].[cat_Offers_Image]
+(
+	[Offers_Banner_Img]
+)
+VALUES
+(
+	'OfferImage/off-banner.jpg'
 )
 GO
 
