@@ -78,7 +78,7 @@ namespace Utils
 
         private static void SendEmail(string bodyEmail, string To, string Subject)
         {
-            var mailer = new MimeMailer(EmailResources.Host, 465);
+            var mailer = new MimeMailer(EmailResources.Host, EmailResources.Port);
             mailer.User = EmailResources.Username;
             mailer.Password = EmailResources.Password;
             mailer.SslType = SslMode.Ssl;
@@ -112,33 +112,36 @@ namespace Utils
         {
             AlternateView vw = AlternateView.CreateAlternateViewFromString(bodyEmail, null, MediaTypeNames.Text.Html);
 
-            LinkedResource logo = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/logo.png"), MediaTypeNames.Image.Jpeg);
-            LinkedResource instagram = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/instagram.png"), MediaTypeNames.Image.Jpeg);
-            LinkedResource facebook = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/facebook.png"), MediaTypeNames.Image.Jpeg);
-            LinkedResource website = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/website.png"), MediaTypeNames.Image.Jpeg);
-            LinkedResource email = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/email.png"), MediaTypeNames.Image.Jpeg);
-            LinkedResource youtube = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/youtube.png"), MediaTypeNames.Image.Jpeg);
+            if (bodyEmail.Contains("cid:"))
+            {
+                LinkedResource logo = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/logo.png"), MediaTypeNames.Image.Jpeg);
+                LinkedResource instagram = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/instagram.png"), MediaTypeNames.Image.Jpeg);
+                LinkedResource facebook = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/facebook.png"), MediaTypeNames.Image.Jpeg);
+                LinkedResource website = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/website.png"), MediaTypeNames.Image.Jpeg);
+                LinkedResource email = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/email.png"), MediaTypeNames.Image.Jpeg);
+                LinkedResource youtube = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/youtube.png"), MediaTypeNames.Image.Jpeg);
 
-            logo.ContentId = "logo";
-            instagram.ContentId = "instagram";
-            facebook.ContentId = "facebook";
-            website.ContentId = "website";
-            email.ContentId = "email";
-            youtube.ContentId = "youtube";
+                logo.ContentId = "logo";
+                instagram.ContentId = "instagram";
+                facebook.ContentId = "facebook";
+                website.ContentId = "website";
+                email.ContentId = "email";
+                youtube.ContentId = "youtube";
 
-            logo.TransferEncoding = TransferEncoding.Base64;
-            instagram.TransferEncoding = TransferEncoding.Base64;
-            facebook.TransferEncoding = TransferEncoding.Base64;
-            website.TransferEncoding = TransferEncoding.Base64;
-            email.TransferEncoding = TransferEncoding.Base64;
-            youtube.TransferEncoding = TransferEncoding.Base64;
+                logo.TransferEncoding = TransferEncoding.Base64;
+                instagram.TransferEncoding = TransferEncoding.Base64;
+                facebook.TransferEncoding = TransferEncoding.Base64;
+                website.TransferEncoding = TransferEncoding.Base64;
+                email.TransferEncoding = TransferEncoding.Base64;
+                youtube.TransferEncoding = TransferEncoding.Base64;
 
-            vw.LinkedResources.Add(logo);
-            vw.LinkedResources.Add(instagram);
-            vw.LinkedResources.Add(facebook);
-            vw.LinkedResources.Add(website);
-            vw.LinkedResources.Add(email);
-            vw.LinkedResources.Add(youtube);
+                vw.LinkedResources.Add(logo);
+                vw.LinkedResources.Add(instagram);
+                vw.LinkedResources.Add(facebook);
+                vw.LinkedResources.Add(website);
+                vw.LinkedResources.Add(email);
+                vw.LinkedResources.Add(youtube);
+            }
 
             return vw;
         }
