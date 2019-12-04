@@ -223,16 +223,8 @@
     <Compile Include="Models\RootObjectSkydropx.cs" />
     <Compile Include="Models\TrackingInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\EmailResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>EmailResources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Resources\OpenpayResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>OpenpayResources.resx</DependentUpon>
-    </Compile>
+    <Compile Include="Resources\EmailResources.cs" />
+    <Compile Include="Resources\OpenpayResources.cs" />
     <Compile Include="Utils\CredentialUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\MailingUtils.cs" />
@@ -297,16 +289,6 @@
       <DependentUpon>CMS_Dev-Cart.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\EmailResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>EmailResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\OpenpayResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>OpenpayResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
