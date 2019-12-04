@@ -41,6 +41,7 @@ namespace <#=code.EscapeNamespace(codeNamespace)#>
 
 #>
 using System;
+using System.Configuration;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
 <#
@@ -56,8 +57,9 @@ using System.Linq;
 <#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext
 {
     public <#=code.Escape(container)#>()
-        : base("name=<#=container.Name#>")
+        : base(ConnectionString())
     {
+		this.Configuration.ProxyCreationEnabled = false;
 <#
 if (!loader.IsLazyLoadingEnabled(container))
 {
@@ -83,6 +85,17 @@ foreach (var entitySet in container.BaseEntitySets.OfType<EntitySet>())
     protected override void OnModelCreating(DbModelBuilder modelBuilder)
     {
         throw new UnintentionalCodeFirstException();
+    }
+
+	protected static string ConnectionString()
+    {
+        string database = ConfigurationManager.AppSettings["Database"];
+        if (database.Length == 0)
+        {
+            database = "CMS_Dev-Cart";
+        }
+        string ConnectionString = ConfigurationManager.ConnectionStrings["Entities"].ConnectionString.Replace("{CMS_Dev-Cart}", database);
+        return ConnectionString;
     }
 
 <#

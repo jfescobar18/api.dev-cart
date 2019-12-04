@@ -10,19 +10,32 @@
 namespace api.dev_cart.Entity
 {
     using System;
+    using System.Configuration;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
     public partial class Entities : DbContext
     {
         public Entities()
-            : base("name=Entities")
+            : base(ConnectionString())
         {
+    		this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
+        }
+    
+    	protected static string ConnectionString()
+        {
+            string database = ConfigurationManager.AppSettings["Database"];
+            if (database.Length == 0)
+            {
+                database = "CMS_Dev-Cart";
+            }
+            string ConnectionString = ConfigurationManager.ConnectionStrings["Entities"].ConnectionString.Replace("{CMS_Dev-Cart}", database);
+            return ConnectionString;
         }
     
         public virtual DbSet<cat_About_Us_Sections> cat_About_Us_Sections { get; set; }
