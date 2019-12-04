@@ -21,9 +21,9 @@ INSERT [dbo].[cat_Admin_Login]
 )
 VALUES
 (
-	'support@dev-solutions.com',
+	'support@dev-cart.com.mx',
 	'C572548E4CD564C3A348AE4813502C96F8EB83E622EF28B6B0A9FEA300FE5C796F681F047DABCC3243A42C070EF6C5EFBE213A8DA3C1294CB8E38E5B3CA1A7F7'
-	--newFixPass--
+	--n3wFixP@ss--
 )
 
 CREATE TABLE [dbo].[cat_Slider_Images](
