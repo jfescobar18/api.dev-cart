@@ -29,12 +29,15 @@ namespace api.dev_cart.Entity
     
     	protected static string ConnectionString()
         {
-            string database = ConfigurationManager.AppSettings["Database"];
-            if (database.Length == 0)
-            {
-                database = "CMS_Dev-Cart";
-            }
-            string ConnectionString = ConfigurationManager.ConnectionStrings["Entities"].ConnectionString.Replace("{CMS_Dev-Cart}", database);
+            string dataSource = ConfigurationManager.AppSettings["DataSource"];
+            string initialCatalog = ConfigurationManager.AppSettings["InitialCatalog"];
+            string userId = ConfigurationManager.AppSettings["UserId"];
+            string password = ConfigurationManager.AppSettings["Password"];
+            
+            string ConnectionString = ConfigurationManager.ConnectionStrings["Entities"].ConnectionString.Replace("data source=localhost", $"data source={dataSource}");
+            ConnectionString = ConnectionString.Replace("initial catalog=CMS_Dev-Cart", $"initial catalog={initialCatalog}");
+            ConnectionString = ConnectionString.Replace("user id=admin", $"user id={userId}");
+            ConnectionString = ConnectionString.Replace("password=root", $"password={password}");
             return ConnectionString;
         }
     
@@ -52,5 +55,8 @@ namespace api.dev_cart.Entity
         public virtual DbSet<vw_Orders> vw_Orders { get; set; }
         public virtual DbSet<vw_Products> vw_Products { get; set; }
         public virtual DbSet<vw_Sepomex_Info> vw_Sepomex_Info { get; set; }
+        public virtual DbSet<cat_Coupons> cat_Coupons { get; set; }
+        public virtual DbSet<cat_Notice_Privacy> cat_Notice_Privacy { get; set; }
+        public virtual DbSet<cat_Configurations> cat_Configurations { get; set; }
     }
 }

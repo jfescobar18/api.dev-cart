@@ -1,7 +1,6 @@
 ﻿using AegisImplicitMail;
 using api.dev_cart.Entity;
 using api.dev_cart.Models;
-using api.dev_cart.Resources;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -33,7 +32,7 @@ namespace Utils
                     Products += $"<li style='text-align: left;'>{ProductName} {Price}</li>";
                 }
                 string Total = String.Format("{0:C}", kartProducts.Sum(x => x.Price));
-                string OrderURL = $"https://sandbox-dashboard.openpay.mx/paynet-pdf/{OpenpayResources.MerchantID}/{paymentReference}";
+                string OrderURL = $"https://sandbox-dashboard.openpay.mx/paynet-pdf/{ConfigurationUtils.GetConfiguration("MerchantID", "")}/{paymentReference}";
 
                 body = body.Replace("{orderNumber}", orderNumber);
                 body = body.Replace("{Products}", Products);
@@ -70,25 +69,37 @@ namespace Utils
                 body = body.Replace("{ShippingService}", ShippingService);
                 body = body.Replace("{TrackingURL}", TrackingURL);
 
-                SendEmail(body, To, "Número de guía");
+                SendEmail(body, To, "Numero de guia");
             }
 
             await Task.CompletedTask;
         }
 
+        public static async void SendTestEmail(string To)
+        {
+            Entities entity = new Entities();
+            using (StreamReader reader = new StreamReader(HttpContext.Current.Server.MapPath("~/Mailing/testEmail.html")))
+            {
+                string body = reader.ReadToEnd();
+                SendEmail(body, To, "Test Email");
+
+                await Task.CompletedTask;
+            }
+        }
+
         private static void SendEmail(string bodyEmail, string To, string Subject)
         {
-            var mailer = new MimeMailer(EmailResources.Host, EmailResources.Port);
-            mailer.User = EmailResources.Username;
-            mailer.Password = EmailResources.Password;
+            var mailer = new MimeMailer(ConfigurationUtils.GetConfiguration("MimeMailerHost", ""), ConfigurationUtils.GetConfiguration("MimeMailerPort", 0));
+            mailer.User = ConfigurationUtils.GetConfiguration("MimeMailerUsername", "");
+            mailer.Password = ConfigurationUtils.GetConfiguration("MimeMailerPassword", "");
             mailer.SslType = SslMode.Ssl;
             mailer.AuthenticationMode = AuthenticationType.Base64;
 
             var message = new MimeMailMessage();
-            message.From = new MimeMailAddress(EmailResources.Username, "Dev-Solutions");
+            message.From = new MimeMailAddress(ConfigurationUtils.GetConfiguration("MimeMailerUsername", ""), ConfigurationUtils.GetConfiguration("FromLabel", "Dev-Cart"));
             message.To.Add(To);
             message.IsBodyHtml = true;
-            message.AlternateViews.Add(alternateView(bodyEmail));
+            addAttachments(ref message, bodyEmail);
             message.BodyEncoding = Encoding.UTF8;
             message.DeliveryNotificationOptions = DeliveryNotificationOptions.OnFailure;
             message.Subject = Subject;
@@ -108,42 +119,91 @@ namespace Utils
                 Console.Out.WriteLine("Error : " + e.Error.Message);
         }
 
-        private static AlternateView alternateView(string bodyEmail)
+        private static void addAttachments(ref MimeMailMessage message, string bodyEmail)
         {
-            AlternateView vw = AlternateView.CreateAlternateViewFromString(bodyEmail, null, MediaTypeNames.Text.Html);
-
             if (bodyEmail.Contains("cid:"))
             {
-                LinkedResource logo = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/logo.png"), MediaTypeNames.Image.Jpeg);
-                LinkedResource instagram = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/instagram.png"), MediaTypeNames.Image.Jpeg);
-                LinkedResource facebook = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/facebook.png"), MediaTypeNames.Image.Jpeg);
-                LinkedResource website = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/website.png"), MediaTypeNames.Image.Jpeg);
-                LinkedResource email = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/email.png"), MediaTypeNames.Image.Jpeg);
-                LinkedResource youtube = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/youtube.png"), MediaTypeNames.Image.Jpeg);
-
+                var logo = new MimeAttachment(HttpContext.Current.Server.MapPath("~/Mailing/img/logo.png"));
+                logo.Location = AttachmentLocation.Inline;
                 logo.ContentId = "logo";
-                instagram.ContentId = "instagram";
+                logo.ContentDisposition.Inline = true;
+                logo.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
+
+                var instagram = new MimeAttachment(HttpContext.Current.Server.MapPath("~/Mailing/img/instagram.png"));
+                instagram.Location = AttachmentLocation.Inline;
+                instagram.ContentId = "instagram.";
+                instagram.ContentDisposition.Inline = true;
+                instagram.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
+
+                var facebook = new MimeAttachment(HttpContext.Current.Server.MapPath("~/Mailing/img/facebook.png"));
+                facebook.Location = AttachmentLocation.Inline;
                 facebook.ContentId = "facebook";
+                facebook.ContentDisposition.Inline = true;
+                facebook.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
+
+                var website = new MimeAttachment(HttpContext.Current.Server.MapPath("~/Mailing/img/website.png"));
+                website.Location = AttachmentLocation.Inline;
                 website.ContentId = "website";
+                website.ContentDisposition.Inline = true;
+                website.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
+
+                var email = new MimeAttachment(HttpContext.Current.Server.MapPath("~/Mailing/img/email.png"));
+                email.Location = AttachmentLocation.Inline;
                 email.ContentId = "email";
+                email.ContentDisposition.Inline = true;
+                email.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
+
+                var youtube = new MimeAttachment(HttpContext.Current.Server.MapPath("~/Mailing/img/youtube.png"));
+                youtube.Location = AttachmentLocation.Inline;
                 youtube.ContentId = "youtube";
+                youtube.ContentDisposition.Inline = true;
+                youtube.ContentDisposition.DispositionType = DispositionTypeNames.Inline;
 
-                logo.TransferEncoding = TransferEncoding.Base64;
-                instagram.TransferEncoding = TransferEncoding.Base64;
-                facebook.TransferEncoding = TransferEncoding.Base64;
-                website.TransferEncoding = TransferEncoding.Base64;
-                email.TransferEncoding = TransferEncoding.Base64;
-                youtube.TransferEncoding = TransferEncoding.Base64;
-
-                vw.LinkedResources.Add(logo);
-                vw.LinkedResources.Add(instagram);
-                vw.LinkedResources.Add(facebook);
-                vw.LinkedResources.Add(website);
-                vw.LinkedResources.Add(email);
-                vw.LinkedResources.Add(youtube);
+                message.Attachments.Add(logo);
+                message.Attachments.Add(instagram);
+                message.Attachments.Add(facebook);
+                message.Attachments.Add(website);
+                message.Attachments.Add(email);
+                message.Attachments.Add(youtube);
             }
-
-            return vw;
         }
+
+        //private static AlternateView alternateView(string bodyEmail)
+        //{
+        //    AlternateView vw = AlternateView.CreateAlternateViewFromString(bodyEmail, null, MediaTypeNames.Text.Html);
+
+        //    if (bodyEmail.Contains("cid:"))
+        //    {
+        //        LinkedResource logo = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/logo.png"), MediaTypeNames.Image.Jpeg);
+        //        LinkedResource instagram = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/instagram.png"), MediaTypeNames.Image.Jpeg);
+        //        LinkedResource facebook = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/facebook.png"), MediaTypeNames.Image.Jpeg);
+        //        LinkedResource website = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/website.png"), MediaTypeNames.Image.Jpeg);
+        //        LinkedResource email = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/email.png"), MediaTypeNames.Image.Jpeg);
+        //        LinkedResource youtube = new LinkedResource(HttpContext.Current.Server.MapPath("~/Mailing/img/youtube.png"), MediaTypeNames.Image.Jpeg);
+
+        //        logo.ContentId = "logo";
+        //        instagram.ContentId = "instagram";
+        //        facebook.ContentId = "facebook";
+        //        website.ContentId = "website";
+        //        email.ContentId = "email";
+        //        youtube.ContentId = "youtube";
+
+        //        logo.TransferEncoding = TransferEncoding.Base64;
+        //        instagram.TransferEncoding = TransferEncoding.Base64;
+        //        facebook.TransferEncoding = TransferEncoding.Base64;
+        //        website.TransferEncoding = TransferEncoding.Base64;
+        //        email.TransferEncoding = TransferEncoding.Base64;
+        //        youtube.TransferEncoding = TransferEncoding.Base64;
+
+        //        vw.LinkedResources.Add(logo);
+        //        vw.LinkedResources.Add(instagram);
+        //        vw.LinkedResources.Add(facebook);
+        //        vw.LinkedResources.Add(website);
+        //        vw.LinkedResources.Add(email);
+        //        vw.LinkedResources.Add(youtube);
+        //    }
+
+        //    return vw;
+        //}
     }
 }

@@ -89,12 +89,15 @@ foreach (var entitySet in container.BaseEntitySets.OfType<EntitySet>())
 
 	protected static string ConnectionString()
     {
-        string database = ConfigurationManager.AppSettings["Database"];
-        if (database.Length == 0)
-        {
-            database = "CMS_Dev-Cart";
-        }
-        string ConnectionString = ConfigurationManager.ConnectionStrings["Entities"].ConnectionString.Replace("{CMS_Dev-Cart}", database);
+        string dataSource = ConfigurationManager.AppSettings["DataSource"];
+        string initialCatalog = ConfigurationManager.AppSettings["InitialCatalog"];
+        string userId = ConfigurationManager.AppSettings["UserId"];
+        string password = ConfigurationManager.AppSettings["Password"];
+        
+        string ConnectionString = ConfigurationManager.ConnectionStrings["Entities"].ConnectionString.Replace("data source=localhost", $"data source={dataSource}");
+        ConnectionString = ConnectionString.Replace("initial catalog=CMS_Dev-Cart", $"initial catalog={initialCatalog}");
+        ConnectionString = ConnectionString.Replace("user id=admin", $"user id={userId}");
+        ConnectionString = ConnectionString.Replace("password=root", $"password={password}");
         return ConnectionString;
     }
 

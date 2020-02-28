@@ -23,6 +23,9 @@
         <AssociationConnector Association="Model.FK__cat_Produ__Produ__17F790F9" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__cat_Produ__Categ__0C85DE4D" ManuallyRouted="false" />
         <AssociationConnector Association="Model.FK__cat_Revie__Produ__19DFD96B" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.cat_Coupons" Width="1.5" PointX="8.375" PointY="11.75" />
+        <EntityTypeShape EntityType="Model.cat_Notice_Privacy" Width="1.5" PointX="10.375" PointY="11.75" />
+        <EntityTypeShape EntityType="Model.cat_Configurations" Width="1.5" PointX="0.75" PointY="12.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

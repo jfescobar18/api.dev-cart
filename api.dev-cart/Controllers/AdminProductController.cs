@@ -500,6 +500,29 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpPost]
+        [Route("AdminProduct/SendTestEmail")]
+        public async Task<HttpResponseMessage> SendTestEmail([FromBody] TrackingInformation json)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            HttpStatusCode statusCode = HttpStatusCode.BadRequest;
+
+            try
+            {
+                MailingUtils.SendTestEmail(json.ClientEmail);
+
+                statusCode = HttpStatusCode.OK;
+                dict.Add("message", "Test Email sent successfully");
+            }
+            catch (Exception ex)
+            {
+                dict.Add("message", ex.Message);
+            }
+
+            await Task.CompletedTask;
+            return Request.CreateResponse(statusCode, dict);
+        }
+
+        [HttpPost]
         [Route("AdminProduct/DeleteOrder")]
         public async Task<HttpResponseMessage> DeleteOrder([FromBody] int Order_Id)
         {

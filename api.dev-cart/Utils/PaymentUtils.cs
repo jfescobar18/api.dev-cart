@@ -1,5 +1,4 @@
-﻿using api.dev_cart.Resources;
-using Openpay;
+﻿using Openpay;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,7 +12,7 @@ namespace Utils
         {
             try
             {
-                OpenpayAPI api = new OpenpayAPI(OpenpayResources.OpenpayPrivateKey, OpenpayResources.MerchantID);
+                OpenpayAPI api = new OpenpayAPI(ConfigurationUtils.GetConfiguration("OpenpayPrivateKey", ""), ConfigurationUtils.GetConfiguration("MerchantID", ""));
                 var Charge = api.ChargeService.Get(transaction_id);
                 return Charge.Status;
             }

@@ -1,6 +1,5 @@
 ﻿using api.dev_cart.Entity;
 using api.dev_cart.Models;
-using api.dev_cart.Resources;
 using Newtonsoft.Json;
 using Openpay;
 using Openpay.Entities;
@@ -57,7 +56,7 @@ namespace api.dev_cart.Controllers
 
             try
             {
-                OpenpayAPI api = new OpenpayAPI(OpenpayResources.OpenpayPrivateKey, OpenpayResources.MerchantID);
+                OpenpayAPI api = new OpenpayAPI(ConfigurationUtils.GetConfiguration("OpenpayPrivateKey", ""), ConfigurationUtils.GetConfiguration("MerchantID", ""));
 
                 Customer customer = new Customer();
                 customer.Name = json.Name;
@@ -69,7 +68,7 @@ namespace api.dev_cart.Controllers
                 request.Method = json.Method;
                 request.SourceId = json.TokenId;
                 request.Amount = json.Amount;
-                request.Description = OpenpayResources.OpenpayDescription;
+                request.Description = ConfigurationUtils.GetConfiguration("OpenpayDescription", "");
                 request.DeviceSessionId = json.DeviceSessionId;
                 request.Customer = customer;
                 request.UseCardPoints = json.UseCardPoints ?? "false";

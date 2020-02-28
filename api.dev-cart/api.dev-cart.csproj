@@ -151,6 +151,7 @@
     <Compile Include="Controllers\AdminContentController.cs" />
     <Compile Include="Controllers\AdminCredentialsController.cs" />
     <Compile Include="Controllers\AdminProductController.cs" />
+    <Compile Include="Controllers\ConfigurationsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Entity\cat_About_Us_Sections.cs">
@@ -163,6 +164,15 @@
       <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Categories.cs">
+      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\cat_Configurations.cs">
+      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\cat_Coupons.cs">
+      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\cat_Notice_Privacy.cs">
       <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Offers_Image.cs">
@@ -223,8 +233,7 @@
     <Compile Include="Models\RootObjectSkydropx.cs" />
     <Compile Include="Models\TrackingInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resources\EmailResources.cs" />
-    <Compile Include="Resources\OpenpayResources.cs" />
+    <Compile Include="Utils\ConfigurationUtils.cs" />
     <Compile Include="Utils\CredentialUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\MailingUtils.cs" />
@@ -251,6 +260,7 @@
     <Content Include="Mailing\img\website.png" />
     <Content Include="Mailing\img\youtube.png" />
     <Content Include="Mailing\orderConfirmedEmail.html" />
+    <Content Include="Mailing\testEmail.html" />
     <Content Include="Mailing\paymentOderEmail.html" />
     <Content Include="Mailing\trackingIdEmail.html" />
     <Content Include="OfferImage\off-banner.jpg" />
@@ -258,9 +268,6 @@
     <Content Include="SliderImages\slider2.jpg" />
     <Content Include="SliderImages\slider3.jpg" />
     <Content Include="SliderImages\slider4.jpg" />
-    <Content Include="SQL\05102019_Create_Database.sql" />
-    <Content Include="SQL\05102019_Insert_cat_Sepomex_R1.sql" />
-    <Content Include="SQL\05102019_Insert_cat_Sepomex_R2.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -279,6 +286,8 @@
     <Folder Include="App_Data\" />
     <Folder Include="Areas\" />
     <Folder Include="Scripts\" />
+    <Folder Include="SQL\" />
+    <Folder Include="Views\Configuration\" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Entity\CMS_Dev-Cart.edmx">
@@ -289,6 +298,7 @@
       <DependentUpon>CMS_Dev-Cart.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Busgarage.pubxml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
