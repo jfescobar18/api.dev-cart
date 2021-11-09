@@ -48,6 +48,7 @@
           <Property Name="Coupon_Creation_Date" Type="datetime" Nullable="false" />
           <Property Name="Coupon_Expiration_Date" Type="datetime" Nullable="false" />
           <Property Name="Coupon_Use_Date" Type="datetime" />
+          <Property Name="Specific_Rule_Json_Config" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="cat_Notice_Privacy">
           <Key>
@@ -100,7 +101,7 @@
           <Property Name="Product_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Product_Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Product_Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="Product_Disscount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Product_Discount" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Category_Id" Type="int" />
           <Property Name="Product_Img" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Product_Description" Type="nvarchar(max)" Nullable="false" />
@@ -109,8 +110,8 @@
           <Property Name="Product_Released" Type="bit" Nullable="false" />
           <Property Name="Product_Stock" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS_Dev-Cart.dbo.cat_Reviews' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CMS_Dev-Cart.dbo.cat_Reviews' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="cat_Reviews">
           <Key>
             <PropertyRef Name="Review_Id" />
@@ -121,13 +122,12 @@ warning 6002: The table/view 'CMS_Dev-Cart.dbo.cat_Reviews' does not have a prim
           <Property Name="Product_Id" Type="int" Nullable="false" />
           <Property Name="Review_Score" Type="int" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS_Dev-Cart.dbo.cat_Sepomex' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="cat_Sepomex">
           <Key>
-            <PropertyRef Name="d_codigo" />
+            <PropertyRef Name="Sepomex_Id" />
           </Key>
-          <Property Name="d_codigo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Sepomex_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="d_codigo" Type="nvarchar" MaxLength="512" />
           <Property Name="d_asenta" Type="nvarchar" MaxLength="512" />
           <Property Name="d_tipo_asenta" Type="nvarchar" MaxLength="512" />
           <Property Name="D_mnpio" Type="nvarchar" MaxLength="512" />
@@ -150,6 +150,23 @@ warning 6002: The table/view 'CMS_Dev-Cart.dbo.cat_Sepomex' does not have a prim
           <Property Name="Slider_Image_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Slider_Image_Img" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <EntityType Name="cat_Social_Media">
+          <Key>
+            <PropertyRef Name="Social_Media_Id" />
+          </Key>
+          <Property Name="Social_Media_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Social_Media_Name" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Social_Media_Awesome_Font" Type="nvarchar" MaxLength="512" Nullable="false" />
+          <Property Name="Social_Media_Url" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Social_Media_Tab" Type="nvarchar" MaxLength="127" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Banks">
+          <Key>
+            <PropertyRef Name="Bank_Id" />
+          </Key>
+          <Property Name="Bank_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Bank_Name" Type="nvarchar" MaxLength="512" Nullable="false" />
+        </EntityType>
         <EntityType Name="cat_Categories">
           <Key>
             <PropertyRef Name="Category_Id" />
@@ -157,8 +174,15 @@ warning 6002: The table/view 'CMS_Dev-Cart.dbo.cat_Sepomex' does not have a prim
           <Property Name="Category_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Category_Name" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS_Dev-Cart.dbo.vw_Orders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="cat_Specific_Rules">
+          <Key>
+            <PropertyRef Name="Specific_Rule_Id" />
+          </Key>
+          <Property Name="Specific_Rule_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Specific_Rule_Name" Type="nvarchar" MaxLength="512" Nullable="false" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CMS_Dev-Cart.dbo.vw_Orders' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vw_Orders">
           <Key>
             <PropertyRef Name="Order_Id" />
@@ -195,8 +219,8 @@ warning 6002: The table/view 'CMS_Dev-Cart.dbo.vw_Orders' does not have a primar
           <Property Name="Order_Payment_Status" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="Order_Tracking_Id" Type="nvarchar" MaxLength="255" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS_Dev-Cart.dbo.vw_Products' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CMS_Dev-Cart.dbo.vw_Products' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vw_Products">
           <Key>
             <PropertyRef Name="Product_Id" />
@@ -212,7 +236,7 @@ warning 6002: The table/view 'CMS_Dev-Cart.dbo.vw_Products' does not have a prim
           <Property Name="Product_Id" Type="int" Nullable="false" />
           <Property Name="Product_Name" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Product_Price" Type="decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="Product_Disscount" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="Product_Discount" Type="decimal" Precision="10" Scale="2" />
           <Property Name="Category_Id" Type="int" />
           <Property Name="Category_Name" Type="nvarchar" MaxLength="255" />
           <Property Name="Product_Img" Type="nvarchar(max)" Nullable="false" />
@@ -225,29 +249,20 @@ warning 6002: The table/view 'CMS_Dev-Cart.dbo.vw_Products' does not have a prim
           <Property Name="Product_Price_Total" Type="decimal" Precision="26" Scale="8" />
           <Property Name="Product_Is_New" Type="bit" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'CMS_Dev-Cart.dbo.vw_Sepomex_Info' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'CMS_Dev-Cart.dbo.vw_Sepomex_Info' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
         <EntityType Name="vw_Sepomex_Info">
           <Key>
-            <PropertyRef Name="d_codigo" />
+            <PropertyRef Name="Sepomex_Id" />
           </Key>
-          <Property Name="d_codigo" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="Sepomex_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="d_codigo" Type="nvarchar" MaxLength="512" />
           <Property Name="d_asenta" Type="nvarchar" MaxLength="512" />
           <Property Name="D_mnpio" Type="nvarchar" MaxLength="512" />
           <Property Name="d_estado" Type="nvarchar" MaxLength="512" />
           <Property Name="d_ciudad" Type="nvarchar" MaxLength="512" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Delivered_Orders' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="vw_Delivered_Orders">
-          <Property Name="Total" Type="int" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="vw_Not_Delivered_Orders">
-          <Property Name="Total" Type="int" />
-        </EntityType>-->
-        <Association Name="FK__cat_Order__Cart___14270015">
+        <Association Name="FK__cat_Order__Cart___38996AB5">
           <End Role="cat_Carts" Type="Self.cat_Carts" Multiplicity="1" />
           <End Role="cat_Orders" Type="Self.cat_Orders" Multiplicity="*" />
           <ReferentialConstraint>
@@ -259,7 +274,7 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__cat_Produ__Categ__0C85DE4D">
+        <Association Name="FK__cat_Produ__Categ__7F2BE32F">
           <End Role="cat_Categories" Type="Self.cat_Categories" Multiplicity="0..1" />
           <End Role="cat_Products" Type="Self.cat_Products" Multiplicity="*" />
           <ReferentialConstraint>
@@ -271,7 +286,7 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__cat_Produ__Produ__17F790F9">
+        <Association Name="FK__cat_Produ__Produ__02FC7413">
           <End Role="cat_Products" Type="Self.cat_Products" Multiplicity="1" />
           <End Role="cat_Product_Galery_Images" Type="Self.cat_Product_Galery_Images" Multiplicity="*" />
           <ReferentialConstraint>
@@ -283,7 +298,7 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__cat_Revie__Produ__19DFD96B">
+        <Association Name="FK__cat_Revie__Produ__04E4BC85">
           <End Role="cat_Products" Type="Self.cat_Products" Multiplicity="1" />
           <End Role="cat_Reviews" Type="Self.cat_Reviews" Multiplicity="*" />
           <ReferentialConstraint>
@@ -306,33 +321,18 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
           <EntitySet Name="cat_Orders" EntityType="Self.cat_Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cat_Product_Galery_Images" EntityType="Self.cat_Product_Galery_Images" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cat_Products" EntityType="Self.cat_Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cat_Sepomex" EntityType="Self.cat_Sepomex" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="cat_Slider_Images" EntityType="Self.cat_Slider_Images" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cat_Social_Media" EntityType="Self.cat_Social_Media" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="cat_Banks" EntityType="Self.cat_Banks" Schema="lookup" store:Type="Tables" />
           <EntitySet Name="cat_Categories" EntityType="Self.cat_Categories" Schema="lookup" store:Type="Tables" />
+          <EntitySet Name="cat_Specific_Rules" EntityType="Self.cat_Specific_Rules" Schema="lookup" store:Type="Tables" />
           <EntitySet Name="cat_Reviews" EntityType="Self.cat_Reviews" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [cat_Reviews].[Review_Id] AS [Review_Id], 
     [cat_Reviews].[Product_Id] AS [Product_Id], 
     [cat_Reviews].[Review_Score] AS [Review_Score]
     FROM [dbo].[cat_Reviews] AS [cat_Reviews]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="cat_Sepomex" EntityType="Self.cat_Sepomex" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [cat_Sepomex].[d_codigo] AS [d_codigo], 
-    [cat_Sepomex].[d_asenta] AS [d_asenta], 
-    [cat_Sepomex].[d_tipo_asenta] AS [d_tipo_asenta], 
-    [cat_Sepomex].[D_mnpio] AS [D_mnpio], 
-    [cat_Sepomex].[d_estado] AS [d_estado], 
-    [cat_Sepomex].[d_ciudad] AS [d_ciudad], 
-    [cat_Sepomex].[d_CP] AS [d_CP], 
-    [cat_Sepomex].[c_estado] AS [c_estado], 
-    [cat_Sepomex].[c_oficina] AS [c_oficina], 
-    [cat_Sepomex].[c_CP] AS [c_CP], 
-    [cat_Sepomex].[c_tipo_asenta] AS [c_tipo_asenta], 
-    [cat_Sepomex].[c_mnpio] AS [c_mnpio], 
-    [cat_Sepomex].[id_asenta_cpcons] AS [id_asenta_cpcons], 
-    [cat_Sepomex].[d_zona] AS [d_zona], 
-    [cat_Sepomex].[c_cve_ciudad] AS [c_cve_ciudad]
-    FROM [dbo].[cat_Sepomex] AS [cat_Sepomex]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="vw_Orders" EntityType="Self.vw_Orders" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -360,7 +360,7 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
     [vw_Products].[Product_Id] AS [Product_Id], 
     [vw_Products].[Product_Name] AS [Product_Name], 
     [vw_Products].[Product_Price] AS [Product_Price], 
-    [vw_Products].[Product_Disscount] AS [Product_Disscount], 
+    [vw_Products].[Product_Discount] AS [Product_Discount], 
     [vw_Products].[Category_Id] AS [Category_Id], 
     [vw_Products].[Category_Name] AS [Category_Name], 
     [vw_Products].[Product_Img] AS [Product_Img], 
@@ -376,6 +376,7 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
           </EntitySet>
           <EntitySet Name="vw_Sepomex_Info" EntityType="Self.vw_Sepomex_Info" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
+    [vw_Sepomex_Info].[Sepomex_Id] AS [Sepomex_Id], 
     [vw_Sepomex_Info].[d_codigo] AS [d_codigo], 
     [vw_Sepomex_Info].[d_asenta] AS [d_asenta], 
     [vw_Sepomex_Info].[D_mnpio] AS [D_mnpio], 
@@ -383,19 +384,19 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
     [vw_Sepomex_Info].[d_ciudad] AS [d_ciudad]
     FROM [dbo].[vw_Sepomex_Info] AS [vw_Sepomex_Info]</DefiningQuery>
           </EntitySet>
-          <AssociationSet Name="FK__cat_Order__Cart___14270015" Association="Self.FK__cat_Order__Cart___14270015">
+          <AssociationSet Name="FK__cat_Order__Cart___38996AB5" Association="Self.FK__cat_Order__Cart___38996AB5">
             <End Role="cat_Carts" EntitySet="cat_Carts" />
             <End Role="cat_Orders" EntitySet="cat_Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK__cat_Produ__Categ__0C85DE4D" Association="Self.FK__cat_Produ__Categ__0C85DE4D">
+          <AssociationSet Name="FK__cat_Produ__Categ__7F2BE32F" Association="Self.FK__cat_Produ__Categ__7F2BE32F">
             <End Role="cat_Categories" EntitySet="cat_Categories" />
             <End Role="cat_Products" EntitySet="cat_Products" />
           </AssociationSet>
-          <AssociationSet Name="FK__cat_Produ__Produ__17F790F9" Association="Self.FK__cat_Produ__Produ__17F790F9">
+          <AssociationSet Name="FK__cat_Produ__Produ__02FC7413" Association="Self.FK__cat_Produ__Produ__02FC7413">
             <End Role="cat_Products" EntitySet="cat_Products" />
             <End Role="cat_Product_Galery_Images" EntitySet="cat_Product_Galery_Images" />
           </AssociationSet>
-          <AssociationSet Name="FK__cat_Revie__Produ__19DFD96B" Association="Self.FK__cat_Revie__Produ__19DFD96B">
+          <AssociationSet Name="FK__cat_Revie__Produ__04E4BC85" Association="Self.FK__cat_Revie__Produ__04E4BC85">
             <End Role="cat_Products" EntitySet="cat_Products" />
             <End Role="cat_Reviews" EntitySet="cat_Reviews" />
           </AssociationSet>
@@ -427,7 +428,36 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
           <Property Name="Cart_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Cart_Json_Config" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Cart_Creation_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="cat_Orders" Relationship="Self.FK__cat_Order__Cart___14270015" FromRole="cat_Carts" ToRole="cat_Orders" />
+          <NavigationProperty Name="cat_Orders" Relationship="Self.FK__cat_Order__Cart___38996AB5" FromRole="cat_Carts" ToRole="cat_Orders" />
+        </EntityType>
+        <EntityType Name="cat_Configurations">
+          <Key>
+            <PropertyRef Name="Configuration_Id" />
+          </Key>
+          <Property Name="Configuration_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Configuration_Key" Type="String" MaxLength="125" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Configuration_Value" Type="String" MaxLength="125" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Coupons">
+          <Key>
+            <PropertyRef Name="Coupon_Id" />
+          </Key>
+          <Property Name="Coupon_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Coupon_Code" Type="String" MaxLength="125" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Coupon_Amount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Coupon_Discount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Coupon_Creation_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Coupon_Expiration_Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Coupon_Use_Date" Type="DateTime" Precision="3" />
+          <Property Name="Specific_Rule_Json_Config" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="cat_Notice_Privacy">
+          <Key>
+            <PropertyRef Name="Notice_Privacy_Id" />
+          </Key>
+          <Property Name="Notice_Privacy_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Notice_Privacy_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Notice_Privacy_Content" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
         <EntityType Name="cat_Offers_Image">
           <Key>
@@ -440,22 +470,22 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
           <Key>
             <PropertyRef Name="Order_Id" />
           </Key>
-          <Property Name="Order_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Cart_Id" Type="Int32" Nullable="false" />
-          <Property Name="Order_Client_Name" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Order_Client_Email" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Order_Client_Phone" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Order_Client_Address1" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Order_Client_Address2" Type="String" MaxLength="1024" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Order_Client_Province" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Order_Client_City" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Order_Client_Zip" Type="String" MaxLength="11" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Order_Client_Comments" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Order_Creation_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Order_Delivered_Date" Type="DateTime" Precision="3" />
-          <Property Name="Order_Openpay_ChargeId" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Order_Tracking_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="cat_Carts" Relationship="Self.FK__cat_Order__Cart___14270015" FromRole="cat_Orders" ToRole="cat_Carts" />
+          <Property Name="Order_Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" Type="Int32" />
+          <Property Name="Cart_Id" Nullable="false" Type="Int32" />
+          <Property Name="Order_Client_Name" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Order_Client_Email" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Order_Client_Phone" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Order_Client_Address1" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Order_Client_Address2" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Order_Client_Province" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Order_Client_City" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Order_Client_Zip" Nullable="false" MaxLength="11" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Order_Client_Comments" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Order_Creation_Date" Nullable="false" Precision="3" Type="DateTime" />
+          <Property Name="Order_Delivered_Date" Precision="3" Type="DateTime" />
+          <Property Name="Order_Openpay_ChargeId" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" Type="String" />
+          <Property Name="Order_Tracking_Id" MaxLength="255" FixedLength="false" Unicode="true" Type="String" />
+          <NavigationProperty Name="cat_Carts" Relationship="Self.FK__cat_Order__Cart___38996AB5" FromRole="cat_Orders" ToRole="cat_Carts" />
         </EntityType>
         <EntityType Name="cat_Product_Galery_Images">
           <Key>
@@ -465,58 +495,14 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
           <Property Name="Product_Id" Type="Int32" Nullable="false" />
           <Property Name="Product_Galery_Image_Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Product_Galery_Image_Order" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="cat_Products" Relationship="Self.FK__cat_Produ__Produ__17F790F9" FromRole="cat_Product_Galery_Images" ToRole="cat_Products" />
-        </EntityType>
-        <EntityType Name="cat_Products">
-          <Key>
-            <PropertyRef Name="Product_Id" />
-          </Key>
-          <Property Name="Product_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Product_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Product_Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="Product_Disscount" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Category_Id" Type="Int32" />
-          <Property Name="Product_Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Product_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Product_Configurations" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Product_Creation_Date" Type="DateTime" Precision="3" />
-          <Property Name="Product_Released" Type="Boolean" Nullable="false" />
-          <Property Name="Product_Stock" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="cat_Product_Galery_Images" Relationship="Self.FK__cat_Produ__Produ__17F790F9" FromRole="cat_Products" ToRole="cat_Product_Galery_Images" />
-          <NavigationProperty Name="cat_Categories" Relationship="Self.FK__cat_Produ__Categ__0C85DE4D" FromRole="cat_Products" ToRole="cat_Categories" />
-          <NavigationProperty Name="cat_Reviews" Relationship="Self.FK__cat_Revie__Produ__19DFD96B" FromRole="cat_Products" ToRole="cat_Reviews" />
-        </EntityType>
-        <EntityType Name="cat_Slider_Images">
-          <Key>
-            <PropertyRef Name="Slider_Image_Id" />
-          </Key>
-          <Property Name="Slider_Image_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Slider_Image_Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-        </EntityType>
-        <EntityType Name="cat_Categories">
-          <Key>
-            <PropertyRef Name="Category_Id" />
-          </Key>
-          <Property Name="Category_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Category_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="cat_Products" Relationship="Self.FK__cat_Produ__Categ__0C85DE4D" FromRole="cat_Categories" ToRole="cat_Products" />
-        </EntityType>
-        <EntityType Name="cat_Reviews">
-          <Key>
-            <PropertyRef Name="Review_Id" />
-            <PropertyRef Name="Product_Id" />
-            <PropertyRef Name="Review_Score" />
-          </Key>
-          <Property Name="Review_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Product_Id" Type="Int32" Nullable="false" />
-          <Property Name="Review_Score" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="cat_Products" Relationship="Self.FK__cat_Revie__Produ__19DFD96B" FromRole="cat_Reviews" ToRole="cat_Products" />
+          <NavigationProperty Name="cat_Products" Relationship="Model.FK__cat_Produ__Produ__02FC7413" FromRole="cat_Product_Galery_Images" ToRole="cat_Products" />
         </EntityType>
         <EntityType Name="cat_Sepomex">
           <Key>
-            <PropertyRef Name="d_codigo" />
+            <PropertyRef Name="Sepomex_Id" />
           </Key>
-          <Property Name="d_codigo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Sepomex_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="d_codigo" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="d_asenta" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="d_tipo_asenta" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="D_mnpio" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
@@ -531,6 +517,42 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
           <Property Name="id_asenta_cpcons" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="d_zona" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="c_cve_ciudad" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="cat_Slider_Images">
+          <Key>
+            <PropertyRef Name="Slider_Image_Id" />
+          </Key>
+          <Property Name="Slider_Image_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Slider_Image_Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Social_Media">
+          <Key>
+            <PropertyRef Name="Social_Media_Id" />
+          </Key>
+          <Property Name="Social_Media_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Social_Media_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Social_Media_Awesome_Font" Type="String" MaxLength="512" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Social_Media_Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Social_Media_Tab" Type="String" MaxLength="127" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="cat_Categories">
+          <Key>
+            <PropertyRef Name="Category_Id" />
+          </Key>
+          <Property Name="Category_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Category_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="cat_Products" Relationship="Model.FK__cat_Produ__Categ__7F2BE32F" FromRole="cat_Categories" ToRole="cat_Products" />
+        </EntityType>
+        <EntityType Name="cat_Reviews">
+          <Key>
+            <PropertyRef Name="Review_Id" />
+            <PropertyRef Name="Product_Id" />
+            <PropertyRef Name="Review_Score" />
+          </Key>
+          <Property Name="Review_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Id" Type="Int32" Nullable="false" />
+          <Property Name="Review_Score" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cat_Products" Relationship="Model.FK__cat_Revie__Produ__04E4BC85" FromRole="cat_Reviews" ToRole="cat_Products" />
         </EntityType>
         <EntityType Name="vw_Orders">
           <Key>
@@ -568,6 +590,86 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
           <Property Name="Order_Payment_Status" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Order_Tracking_Id" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="vw_Sepomex_Info">
+          <Key>
+            <PropertyRef Name="Sepomex_Id" />
+          </Key>
+          <Property Name="Sepomex_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="d_codigo" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="d_asenta" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="D_mnpio" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="d_estado" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Name="d_ciudad" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK__cat_Order__Cart___38996AB5">
+          <End Type="Self.cat_Carts" Multiplicity="1" Role="cat_Carts" />
+          <End Type="Self.cat_Orders" Multiplicity="*" Role="cat_Orders" />
+          <ReferentialConstraint>
+            <Principal Role="cat_Carts">
+              <PropertyRef Name="Cart_Id" />
+            </Principal>
+            <Dependent Role="cat_Orders">
+              <PropertyRef Name="Cart_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="cat_About_Us_Sections" EntityType="Self.cat_About_Us_Sections" />
+          <EntitySet Name="cat_Admin_Login" EntityType="Self.cat_Admin_Login" />
+          <EntitySet Name="cat_Carts" EntityType="Self.cat_Carts" />
+          <EntitySet Name="cat_Configurations" EntityType="Self.cat_Configurations" />
+          <EntitySet Name="cat_Coupons" EntityType="Self.cat_Coupons" />
+          <EntitySet Name="cat_Notice_Privacy" EntityType="Self.cat_Notice_Privacy" />
+          <EntitySet Name="cat_Offers_Image" EntityType="Self.cat_Offers_Image" />
+          <EntitySet Name="cat_Orders" EntityType="Self.cat_Orders" />
+          <EntitySet Name="cat_Product_Galery_Images" EntityType="Self.cat_Product_Galery_Images" />
+          <EntitySet Name="cat_Sepomex" EntityType="Self.cat_Sepomex" />
+          <EntitySet Name="cat_Slider_Images" EntityType="Self.cat_Slider_Images" />
+          <EntitySet Name="cat_Social_Media" EntityType="Self.cat_Social_Media" />
+          <EntitySet Name="cat_Categories" EntityType="Self.cat_Categories" />
+          <EntitySet Name="cat_Reviews" EntityType="Self.cat_Reviews" />
+          <EntitySet Name="vw_Orders" EntityType="Self.vw_Orders" />
+          <EntitySet Name="vw_Sepomex_Info" EntityType="Self.vw_Sepomex_Info" />
+          <AssociationSet Name="FK__cat_Order__Cart___38996AB5" Association="Self.FK__cat_Order__Cart___38996AB5">
+            <End EntitySet="cat_Carts" Role="cat_Carts" />
+            <End EntitySet="cat_Orders" Role="cat_Orders" />
+          </AssociationSet>
+          <EntitySet Name="cat_Products" EntityType="Model.cat_Products" />
+          <EntitySet Name="vw_Products" EntityType="Model.vw_Products" />
+          <AssociationSet Name="FK__cat_Produ__Produ__02FC7413" Association="Model.FK__cat_Produ__Produ__02FC7413">
+            <End Role="cat_Products" EntitySet="cat_Products" />
+            <End Role="cat_Product_Galery_Images" EntitySet="cat_Product_Galery_Images" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cat_Produ__Categ__7F2BE32F" Association="Model.FK__cat_Produ__Categ__7F2BE32F">
+            <End Role="cat_Categories" EntitySet="cat_Categories" />
+            <End Role="cat_Products" EntitySet="cat_Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK__cat_Revie__Produ__04E4BC85" Association="Model.FK__cat_Revie__Produ__04E4BC85">
+            <End Role="cat_Products" EntitySet="cat_Products" />
+            <End Role="cat_Reviews" EntitySet="cat_Reviews" />
+          </AssociationSet>
+          <EntitySet Name="cat_Specific_Rules" EntityType="Model.cat_Specific_Rules" />
+          <EntitySet Name="cat_Banks" EntityType="Model.cat_Banks" />
+          </EntityContainer>
+        <EntityType Name="cat_Products">
+          <Key>
+            <PropertyRef Name="Product_Id" />
+          </Key>
+          <Property Name="Product_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Product_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Product_Discount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Category_Id" Type="Int32" />
+          <Property Name="Product_Img" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Configurations" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Creation_Date" Type="DateTime" Precision="3" />
+          <Property Name="Product_Released" Type="Boolean" Nullable="false" />
+          <Property Name="Product_Stock" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="cat_Product_Galery_Images" Relationship="Model.FK__cat_Produ__Produ__02FC7413" FromRole="cat_Products" ToRole="cat_Product_Galery_Images" />
+          <NavigationProperty Name="cat_Categories" Relationship="Model.FK__cat_Produ__Categ__7F2BE32F" FromRole="cat_Products" ToRole="cat_Categories" />
+          <NavigationProperty Name="cat_Reviews" Relationship="Model.FK__cat_Revie__Produ__04E4BC85" FromRole="cat_Products" ToRole="cat_Reviews" />
+        </EntityType>
         <EntityType Name="vw_Products">
           <Key>
             <PropertyRef Name="Product_Id" />
@@ -581,46 +683,24 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
             <PropertyRef Name="Product_Ranking" />
           </Key>
           <Property Name="Product_Id" Type="Int32" Nullable="false" />
-          <Property Name="Product_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Product_Price" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
-          <Property Name="Product_Disscount" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Product_Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Product_Discount" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="Category_Id" Type="Int32" />
           <Property Name="Category_Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Product_Img" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Product_Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Product_Configurations" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Product_Img" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Product_Configurations" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Product_Creation_Date" Type="DateTime" Precision="3" />
           <Property Name="Product_Released" Type="Boolean" Nullable="false" />
           <Property Name="Product_Stock" Type="Int32" Nullable="false" />
-          <Property Name="Product_Ranking" Type="Decimal" Precision="38" Scale="6" Nullable="false" />
+          <Property Name="Product_Ranking" Type="Decimal" Nullable="false" Precision="38" Scale="6" />
           <Property Name="Product_Price_Total" Type="Decimal" Precision="26" Scale="8" />
           <Property Name="Product_Is_New" Type="Boolean" />
         </EntityType>
-        <EntityType Name="vw_Sepomex_Info">
-          <Key>
-            <PropertyRef Name="d_codigo" />
-          </Key>
-          <Property Name="d_codigo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="d_asenta" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
-          <Property Name="D_mnpio" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
-          <Property Name="d_estado" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
-          <Property Name="d_ciudad" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <Association Name="FK__cat_Order__Cart___14270015">
-          <End Role="cat_Carts" Type="Self.cat_Carts" Multiplicity="1" />
-          <End Role="cat_Orders" Type="Self.cat_Orders" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="cat_Carts">
-              <PropertyRef Name="Cart_Id" />
-            </Principal>
-            <Dependent Role="cat_Orders">
-              <PropertyRef Name="Cart_Id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__cat_Produ__Produ__17F790F9">
-          <End Role="cat_Products" Type="Self.cat_Products" Multiplicity="1" />
-          <End Role="cat_Product_Galery_Images" Type="Self.cat_Product_Galery_Images" Multiplicity="*" />
+        <Association Name="FK__cat_Produ__Produ__02FC7413">
+          <End Type="Model.cat_Products" Role="cat_Products" Multiplicity="1" />
+          <End Type="Model.cat_Product_Galery_Images" Role="cat_Product_Galery_Images" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cat_Products">
               <PropertyRef Name="Product_Id" />
@@ -630,9 +710,9 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__cat_Produ__Categ__0C85DE4D">
-          <End Role="cat_Categories" Type="Self.cat_Categories" Multiplicity="0..1" />
-          <End Role="cat_Products" Type="Self.cat_Products" Multiplicity="*" />
+        <Association Name="FK__cat_Produ__Categ__7F2BE32F">
+          <End Type="Model.cat_Categories" Role="cat_Categories" Multiplicity="0..1" />
+          <End Type="Model.cat_Products" Role="cat_Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cat_Categories">
               <PropertyRef Name="Category_Id" />
@@ -642,9 +722,9 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK__cat_Revie__Produ__19DFD96B">
-          <End Role="cat_Products" Type="Self.cat_Products" Multiplicity="1" />
-          <End Role="cat_Reviews" Type="Self.cat_Reviews" Multiplicity="*" />
+        <Association Name="FK__cat_Revie__Produ__04E4BC85">
+          <End Type="Model.cat_Products" Role="cat_Products" Multiplicity="1" />
+          <End Type="Model.cat_Reviews" Role="cat_Reviews" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="cat_Products">
               <PropertyRef Name="Product_Id" />
@@ -654,68 +734,19 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="Entities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="cat_About_Us_Sections" EntityType="Self.cat_About_Us_Sections" />
-          <EntitySet Name="cat_Admin_Login" EntityType="Self.cat_Admin_Login" />
-          <EntitySet Name="cat_Carts" EntityType="Self.cat_Carts" />
-          <EntitySet Name="cat_Offers_Image" EntityType="Self.cat_Offers_Image" />
-          <EntitySet Name="cat_Orders" EntityType="Self.cat_Orders" />
-          <EntitySet Name="cat_Product_Galery_Images" EntityType="Self.cat_Product_Galery_Images" />
-          <EntitySet Name="cat_Products" EntityType="Self.cat_Products" />
-          <EntitySet Name="cat_Slider_Images" EntityType="Self.cat_Slider_Images" />
-          <EntitySet Name="cat_Categories" EntityType="Self.cat_Categories" />
-          <EntitySet Name="cat_Reviews" EntityType="Self.cat_Reviews" />
-          <EntitySet Name="cat_Sepomex" EntityType="Self.cat_Sepomex" />
-          <EntitySet Name="vw_Orders" EntityType="Self.vw_Orders" />
-          <EntitySet Name="vw_Products" EntityType="Self.vw_Products" />
-          <EntitySet Name="vw_Sepomex_Info" EntityType="Self.vw_Sepomex_Info" />
-          <AssociationSet Name="FK__cat_Order__Cart___14270015" Association="Self.FK__cat_Order__Cart___14270015">
-            <End Role="cat_Carts" EntitySet="cat_Carts" />
-            <End Role="cat_Orders" EntitySet="cat_Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK__cat_Produ__Produ__17F790F9" Association="Self.FK__cat_Produ__Produ__17F790F9">
-            <End Role="cat_Products" EntitySet="cat_Products" />
-            <End Role="cat_Product_Galery_Images" EntitySet="cat_Product_Galery_Images" />
-          </AssociationSet>
-          <AssociationSet Name="FK__cat_Produ__Categ__0C85DE4D" Association="Self.FK__cat_Produ__Categ__0C85DE4D">
-            <End Role="cat_Categories" EntitySet="cat_Categories" />
-            <End Role="cat_Products" EntitySet="cat_Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK__cat_Revie__Produ__19DFD96B" Association="Self.FK__cat_Revie__Produ__19DFD96B">
-            <End Role="cat_Products" EntitySet="cat_Products" />
-            <End Role="cat_Reviews" EntitySet="cat_Reviews" />
-          </AssociationSet>
-          <EntitySet Name="cat_Coupons" EntityType="Model.cat_Coupons" />
-          <EntitySet Name="cat_Notice_Privacy" EntityType="Model.cat_Notice_Privacy" />
-          <EntitySet Name="cat_Configurations" EntityType="Model.cat_Configurations" />
-        </EntityContainer>
-        <EntityType Name="cat_Coupons">
+        <EntityType Name="cat_Specific_Rules">
           <Key>
-            <PropertyRef Name="Coupon_Id" />
+            <PropertyRef Name="Specific_Rule_Id" />
           </Key>
-          <Property Name="Coupon_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Coupon_Code" Type="String" Nullable="false" MaxLength="125" FixedLength="false" Unicode="true" />
-          <Property Name="Coupon_Amount" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Coupon_Discount" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Coupon_Creation_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Coupon_Expiration_Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Coupon_Use_Date" Type="DateTime" Precision="3" />
+          <Property Name="Specific_Rule_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Specific_Rule_Name" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
         </EntityType>
-        <EntityType Name="cat_Notice_Privacy">
+        <EntityType Name="cat_Banks">
           <Key>
-            <PropertyRef Name="Notice_Privacy_Id" />
+            <PropertyRef Name="Bank_Id" />
           </Key>
-          <Property Name="Notice_Privacy_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Notice_Privacy_Title" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="Notice_Privacy_Content" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <EntityType Name="cat_Configurations">
-          <Key>
-            <PropertyRef Name="Configuration_Id" />
-          </Key>
-          <Property Name="Configuration_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Configuration_Key" Type="String" Nullable="false" MaxLength="125" FixedLength="false" Unicode="true" />
-          <Property Name="Configuration_Value" Type="String" Nullable="false" MaxLength="125" FixedLength="false" Unicode="true" />
+          <Property Name="Bank_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Bank_Name" Type="String" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -747,6 +778,38 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
                 <ScalarProperty Name="Cart_Id" ColumnName="Cart_Id" />
                 <ScalarProperty Name="Cart_Json_Config" ColumnName="Cart_Json_Config" />
                 <ScalarProperty Name="Cart_Creation_Date" ColumnName="Cart_Creation_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Configurations">
+            <EntityTypeMapping TypeName="Model.cat_Configurations">
+              <MappingFragment StoreEntitySet="cat_Configurations">
+                <ScalarProperty Name="Configuration_Id" ColumnName="Configuration_Id" />
+                <ScalarProperty Name="Configuration_Key" ColumnName="Configuration_Key" />
+                <ScalarProperty Name="Configuration_Value" ColumnName="Configuration_Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Coupons">
+            <EntityTypeMapping TypeName="Model.cat_Coupons">
+              <MappingFragment StoreEntitySet="cat_Coupons">
+                <ScalarProperty Name="Specific_Rule_Json_Config" ColumnName="Specific_Rule_Json_Config" />
+                <ScalarProperty Name="Coupon_Id" ColumnName="Coupon_Id" />
+                <ScalarProperty Name="Coupon_Code" ColumnName="Coupon_Code" />
+                <ScalarProperty Name="Coupon_Amount" ColumnName="Coupon_Amount" />
+                <ScalarProperty Name="Coupon_Discount" ColumnName="Coupon_Discount" />
+                <ScalarProperty Name="Coupon_Creation_Date" ColumnName="Coupon_Creation_Date" />
+                <ScalarProperty Name="Coupon_Expiration_Date" ColumnName="Coupon_Expiration_Date" />
+                <ScalarProperty Name="Coupon_Use_Date" ColumnName="Coupon_Use_Date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Notice_Privacy">
+            <EntityTypeMapping TypeName="Model.cat_Notice_Privacy">
+              <MappingFragment StoreEntitySet="cat_Notice_Privacy">
+                <ScalarProperty Name="Notice_Privacy_Id" ColumnName="Notice_Privacy_Id" />
+                <ScalarProperty Name="Notice_Privacy_Title" ColumnName="Notice_Privacy_Title" />
+                <ScalarProperty Name="Notice_Privacy_Content" ColumnName="Notice_Privacy_Content" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -789,20 +852,25 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="cat_Products">
-            <EntityTypeMapping TypeName="Model.cat_Products">
-              <MappingFragment StoreEntitySet="cat_Products">
-                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
-                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
-                <ScalarProperty Name="Product_Price" ColumnName="Product_Price" />
-                <ScalarProperty Name="Product_Disscount" ColumnName="Product_Disscount" />
-                <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
-                <ScalarProperty Name="Product_Img" ColumnName="Product_Img" />
-                <ScalarProperty Name="Product_Description" ColumnName="Product_Description" />
-                <ScalarProperty Name="Product_Configurations" ColumnName="Product_Configurations" />
-                <ScalarProperty Name="Product_Creation_Date" ColumnName="Product_Creation_Date" />
-                <ScalarProperty Name="Product_Released" ColumnName="Product_Released" />
-                <ScalarProperty Name="Product_Stock" ColumnName="Product_Stock" />
+          <EntitySetMapping Name="cat_Sepomex">
+            <EntityTypeMapping TypeName="Model.cat_Sepomex">
+              <MappingFragment StoreEntitySet="cat_Sepomex">
+                <ScalarProperty Name="Sepomex_Id" ColumnName="Sepomex_Id" />
+                <ScalarProperty Name="d_codigo" ColumnName="d_codigo" />
+                <ScalarProperty Name="d_asenta" ColumnName="d_asenta" />
+                <ScalarProperty Name="d_tipo_asenta" ColumnName="d_tipo_asenta" />
+                <ScalarProperty Name="D_mnpio" ColumnName="D_mnpio" />
+                <ScalarProperty Name="d_estado" ColumnName="d_estado" />
+                <ScalarProperty Name="d_ciudad" ColumnName="d_ciudad" />
+                <ScalarProperty Name="d_CP" ColumnName="d_CP" />
+                <ScalarProperty Name="c_estado" ColumnName="c_estado" />
+                <ScalarProperty Name="c_oficina" ColumnName="c_oficina" />
+                <ScalarProperty Name="c_CP" ColumnName="c_CP" />
+                <ScalarProperty Name="c_tipo_asenta" ColumnName="c_tipo_asenta" />
+                <ScalarProperty Name="c_mnpio" ColumnName="c_mnpio" />
+                <ScalarProperty Name="id_asenta_cpcons" ColumnName="id_asenta_cpcons" />
+                <ScalarProperty Name="d_zona" ColumnName="d_zona" />
+                <ScalarProperty Name="c_cve_ciudad" ColumnName="c_cve_ciudad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -811,6 +879,17 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
               <MappingFragment StoreEntitySet="cat_Slider_Images">
                 <ScalarProperty Name="Slider_Image_Id" ColumnName="Slider_Image_Id" />
                 <ScalarProperty Name="Slider_Image_Img" ColumnName="Slider_Image_Img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Social_Media">
+            <EntityTypeMapping TypeName="Model.cat_Social_Media">
+              <MappingFragment StoreEntitySet="cat_Social_Media">
+                <ScalarProperty Name="Social_Media_Id" ColumnName="Social_Media_Id" />
+                <ScalarProperty Name="Social_Media_Name" ColumnName="Social_Media_Name" />
+                <ScalarProperty Name="Social_Media_Awesome_Font" ColumnName="Social_Media_Awesome_Font" />
+                <ScalarProperty Name="Social_Media_Url" ColumnName="Social_Media_Url" />
+                <ScalarProperty Name="Social_Media_Tab" ColumnName="Social_Media_Tab" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -828,27 +907,6 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
                 <ScalarProperty Name="Review_Id" ColumnName="Review_Id" />
                 <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
                 <ScalarProperty Name="Review_Score" ColumnName="Review_Score" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="cat_Sepomex">
-            <EntityTypeMapping TypeName="Model.cat_Sepomex">
-              <MappingFragment StoreEntitySet="cat_Sepomex">
-                <ScalarProperty Name="d_codigo" ColumnName="d_codigo" />
-                <ScalarProperty Name="d_asenta" ColumnName="d_asenta" />
-                <ScalarProperty Name="d_tipo_asenta" ColumnName="d_tipo_asenta" />
-                <ScalarProperty Name="D_mnpio" ColumnName="D_mnpio" />
-                <ScalarProperty Name="d_estado" ColumnName="d_estado" />
-                <ScalarProperty Name="d_ciudad" ColumnName="d_ciudad" />
-                <ScalarProperty Name="d_CP" ColumnName="d_CP" />
-                <ScalarProperty Name="c_estado" ColumnName="c_estado" />
-                <ScalarProperty Name="c_oficina" ColumnName="c_oficina" />
-                <ScalarProperty Name="c_CP" ColumnName="c_CP" />
-                <ScalarProperty Name="c_tipo_asenta" ColumnName="c_tipo_asenta" />
-                <ScalarProperty Name="c_mnpio" ColumnName="c_mnpio" />
-                <ScalarProperty Name="id_asenta_cpcons" ColumnName="id_asenta_cpcons" />
-                <ScalarProperty Name="d_zona" ColumnName="d_zona" />
-                <ScalarProperty Name="c_cve_ciudad" ColumnName="c_cve_ciudad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -875,30 +933,10 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="vw_Products">
-            <EntityTypeMapping TypeName="Model.vw_Products">
-              <MappingFragment StoreEntitySet="vw_Products">
-                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
-                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
-                <ScalarProperty Name="Product_Price" ColumnName="Product_Price" />
-                <ScalarProperty Name="Product_Disscount" ColumnName="Product_Disscount" />
-                <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
-                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
-                <ScalarProperty Name="Product_Img" ColumnName="Product_Img" />
-                <ScalarProperty Name="Product_Description" ColumnName="Product_Description" />
-                <ScalarProperty Name="Product_Configurations" ColumnName="Product_Configurations" />
-                <ScalarProperty Name="Product_Creation_Date" ColumnName="Product_Creation_Date" />
-                <ScalarProperty Name="Product_Released" ColumnName="Product_Released" />
-                <ScalarProperty Name="Product_Stock" ColumnName="Product_Stock" />
-                <ScalarProperty Name="Product_Ranking" ColumnName="Product_Ranking" />
-                <ScalarProperty Name="Product_Price_Total" ColumnName="Product_Price_Total" />
-                <ScalarProperty Name="Product_Is_New" ColumnName="Product_Is_New" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="vw_Sepomex_Info">
             <EntityTypeMapping TypeName="Model.vw_Sepomex_Info">
               <MappingFragment StoreEntitySet="vw_Sepomex_Info">
+                <ScalarProperty Name="Sepomex_Id" ColumnName="Sepomex_Id" />
                 <ScalarProperty Name="d_codigo" ColumnName="d_codigo" />
                 <ScalarProperty Name="d_asenta" ColumnName="d_asenta" />
                 <ScalarProperty Name="D_mnpio" ColumnName="D_mnpio" />
@@ -907,34 +945,57 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="cat_Coupons">
-            <EntityTypeMapping TypeName="Model.cat_Coupons">
-              <MappingFragment StoreEntitySet="cat_Coupons">
-                <ScalarProperty Name="Coupon_Use_Date" ColumnName="Coupon_Use_Date" />
-                <ScalarProperty Name="Coupon_Expiration_Date" ColumnName="Coupon_Expiration_Date" />
-                <ScalarProperty Name="Coupon_Creation_Date" ColumnName="Coupon_Creation_Date" />
-                <ScalarProperty Name="Coupon_Discount" ColumnName="Coupon_Discount" />
-                <ScalarProperty Name="Coupon_Amount" ColumnName="Coupon_Amount" />
-                <ScalarProperty Name="Coupon_Code" ColumnName="Coupon_Code" />
-                <ScalarProperty Name="Coupon_Id" ColumnName="Coupon_Id" />
+          <EntitySetMapping Name="cat_Products">
+            <EntityTypeMapping TypeName="Model.cat_Products">
+              <MappingFragment StoreEntitySet="cat_Products">
+                <ScalarProperty Name="Product_Stock" ColumnName="Product_Stock" />
+                <ScalarProperty Name="Product_Released" ColumnName="Product_Released" />
+                <ScalarProperty Name="Product_Creation_Date" ColumnName="Product_Creation_Date" />
+                <ScalarProperty Name="Product_Configurations" ColumnName="Product_Configurations" />
+                <ScalarProperty Name="Product_Description" ColumnName="Product_Description" />
+                <ScalarProperty Name="Product_Img" ColumnName="Product_Img" />
+                <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
+                <ScalarProperty Name="Product_Discount" ColumnName="Product_Discount" />
+                <ScalarProperty Name="Product_Price" ColumnName="Product_Price" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="cat_Notice_Privacy">
-            <EntityTypeMapping TypeName="Model.cat_Notice_Privacy">
-              <MappingFragment StoreEntitySet="cat_Notice_Privacy">
-                <ScalarProperty Name="Notice_Privacy_Content" ColumnName="Notice_Privacy_Content" />
-                <ScalarProperty Name="Notice_Privacy_Title" ColumnName="Notice_Privacy_Title" />
-                <ScalarProperty Name="Notice_Privacy_Id" ColumnName="Notice_Privacy_Id" />
+          <EntitySetMapping Name="vw_Products">
+            <EntityTypeMapping TypeName="Model.vw_Products">
+              <MappingFragment StoreEntitySet="vw_Products">
+                <ScalarProperty Name="Product_Is_New" ColumnName="Product_Is_New" />
+                <ScalarProperty Name="Product_Price_Total" ColumnName="Product_Price_Total" />
+                <ScalarProperty Name="Product_Ranking" ColumnName="Product_Ranking" />
+                <ScalarProperty Name="Product_Stock" ColumnName="Product_Stock" />
+                <ScalarProperty Name="Product_Released" ColumnName="Product_Released" />
+                <ScalarProperty Name="Product_Creation_Date" ColumnName="Product_Creation_Date" />
+                <ScalarProperty Name="Product_Configurations" ColumnName="Product_Configurations" />
+                <ScalarProperty Name="Product_Description" ColumnName="Product_Description" />
+                <ScalarProperty Name="Product_Img" ColumnName="Product_Img" />
+                <ScalarProperty Name="Category_Name" ColumnName="Category_Name" />
+                <ScalarProperty Name="Category_Id" ColumnName="Category_Id" />
+                <ScalarProperty Name="Product_Discount" ColumnName="Product_Discount" />
+                <ScalarProperty Name="Product_Price" ColumnName="Product_Price" />
+                <ScalarProperty Name="Product_Name" ColumnName="Product_Name" />
+                <ScalarProperty Name="Product_Id" ColumnName="Product_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="cat_Configurations">
-            <EntityTypeMapping TypeName="Model.cat_Configurations">
-              <MappingFragment StoreEntitySet="cat_Configurations">
-                <ScalarProperty Name="Configuration_Value" ColumnName="Configuration_Value" />
-                <ScalarProperty Name="Configuration_Key" ColumnName="Configuration_Key" />
-                <ScalarProperty Name="Configuration_Id" ColumnName="Configuration_Id" />
+          <EntitySetMapping Name="cat_Specific_Rules">
+            <EntityTypeMapping TypeName="Model.cat_Specific_Rules">
+              <MappingFragment StoreEntitySet="cat_Specific_Rules">
+                <ScalarProperty Name="Specific_Rule_Name" ColumnName="Specific_Rule_Name" />
+                <ScalarProperty Name="Specific_Rule_Id" ColumnName="Specific_Rule_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="cat_Banks">
+            <EntityTypeMapping TypeName="Model.cat_Banks">
+              <MappingFragment StoreEntitySet="cat_Banks">
+                <ScalarProperty Name="Bank_Name" ColumnName="Bank_Name" />
+                <ScalarProperty Name="Bank_Id" ColumnName="Bank_Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -955,7 +1016,7 @@ warning 6013: The table/view 'CMS_Dev-Cart.reporting.vw_Not_Delivered_Orders' do
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

@@ -2,6 +2,7 @@ IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = 'CMS_Dev-Cart')
 BEGIN
 	CREATE DATABASE [CMS_Dev-Cart]
 END
+GO
 
 USE [CMS_Dev-Cart]
 GO
@@ -76,6 +77,16 @@ WHERE s.name = 'dbo' AND t.name = 'cat_Notice_Privacy')
 			[Notice_Privacy_Title][nvarchar](255) NOT NULL,
 			[Notice_Privacy_Content][nvarchar](max) NOT NULL,
 		)
+		INSERT INTO [dbo].[cat_Notice_Privacy]
+		(
+			[Notice_Privacy_Title],
+			[Notice_Privacy_Content]
+		)
+		VALUES
+		(
+			'Aviso de privacidad',
+			'<p>Content</p>'
+		)
 	END
 GO
 
@@ -114,7 +125,7 @@ WHERE s.name = 'dbo' AND t.name = 'cat_Products')
 			[Product_Id][int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
 			[Product_Name][nvarchar](max) NOT NULL,
 			[Product_Price][decimal](10,2) NOT NULL,
-			[Product_Disscount][decimal](10,2),
+			[Product_Discount][decimal](10,2),
 			[Category_Id][int] FOREIGN KEY REFERENCES [lookup].[cat_Categories]([Category_Id]),
 			[Product_Img][nvarchar](max) NOT NULL,
 			[Product_Description][nvarchar](max) NOT NULL,
@@ -130,7 +141,8 @@ IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s
 WHERE s.name = 'dbo' AND t.name = 'cat_Sepomex')
 	BEGIN
 		CREATE TABLE [dbo].[cat_Sepomex](
-			[d_codigo][int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+			[Sepomex_Id][int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+			[d_codigo][nvarchar](512),
 			[d_asenta][nvarchar](512),
 			[d_tipo_asenta][nvarchar](512),
 			[D_mnpio][nvarchar](512),
@@ -156,6 +168,19 @@ WHERE s.name = 'dbo' AND t.name = 'cat_Carts')
 			[Cart_Id][int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
 			[Cart_Json_Config][nvarchar](max) NOT NULL,
 			[Cart_Creation_Date][datetime] DEFAULT(GETDATE()) NOT NULL
+		)
+	END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id)
+WHERE s.name = 'dbo' AND t.name = 'cat_Social_Media')
+	BEGIN
+		CREATE TABLE [dbo].[cat_Social_Media](
+			[Social_Media_Id][int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+			[Social_Media_Name][nvarchar](255) NOT NULL,
+			[Social_Media_Awesome_Font][nvarchar](512) NOT NULL,
+			[Social_Media_Url][nvarchar](max) DEFAULT('#') NOT NULL,
+			[Social_Media_Tab][nvarchar](127) DEFAULT('_self') NOT NULL
 		)
 	END
 GO
@@ -207,6 +232,50 @@ WHERE s.name = 'dbo' AND t.name = 'cat_Reviews')
 GO
 
 IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id)
+WHERE s.name = 'lookup' AND t.name = 'cat_Banks')
+	BEGIN
+		CREATE TABLE [lookup].[cat_Banks](
+			[Bank_Id][int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+			[Bank_Name][nvarchar](512) NOT NULL
+		)
+		INSERT INTO [lookup].[cat_Banks]
+		(
+			[Bank_Name]
+		)
+		VALUES
+		('AMERICAN EXPRESS'),
+		('BANAMEX'),
+		('BANBAJIO'),
+		('BANORTE'),
+		('BANREGIO'),
+		('BBVA'),
+		('HSBC'),
+		('INBURSA'),
+		('INVEX'),	
+		('SANTANDER'),
+		('SCOTIABANK')
+	END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id)
+WHERE s.name = 'lookup' AND t.name = 'cat_Specific_Rules')
+	BEGIN
+		CREATE TABLE [lookup].[cat_Specific_Rules](
+			[Specific_Rule_Id][int] PRIMARY KEY IDENTITY(1,1) NOT NULL,
+			[Specific_Rule_Name][nvarchar](512) NOT NULL
+		)
+		INSERT INTO [lookup].[cat_Specific_Rules]
+		(
+			[Specific_Rule_Name]
+		)
+		VALUES
+		('Compra mínima'),
+		('Producto'),
+		('Método de pago')
+	END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.tables t JOIN sys.schemas s ON (t.schema_id = s.schema_id)
 WHERE s.name = 'dbo' AND t.name = 'cat_Coupons')
 	BEGIN
 		CREATE TABLE [dbo].[cat_Coupons](
@@ -216,7 +285,8 @@ WHERE s.name = 'dbo' AND t.name = 'cat_Coupons')
 			[Coupon_Discount][decimal](10,2) NULL,
 			[Coupon_Creation_Date] [datetime] DEFAULT(GETDATE()) NOT NULL,
 			[Coupon_Expiration_Date] [datetime] NOT NULL,
-			[Coupon_Use_Date] [datetime] NULL
+			[Coupon_Use_Date] [datetime] NULL,
+			[Specific_Rule_Json_Config][nvarchar](max) NULL
 		)
 	END
 GO
@@ -255,7 +325,7 @@ IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_NAME = 'vw_Pro
 			[Product_Id],
 			[Product_Name],
 			[Product_Price],
-			[Product_Disscount],
+			[Product_Discount],
 			[dbo].[cat_Products].[Category_Id],
 			[lookup].[cat_Categories].[Category_Name],
 			[Product_Img],
@@ -265,7 +335,7 @@ IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_NAME = 'vw_Pro
 			[Product_Released],
 			[Product_Stock],
 			ISNULL((SELECT ROUND(AVG(CAST(Review_Score AS DECIMAL(12,2))), 2) FROM [cat_Reviews] WHERE [cat_Reviews].[Product_Id] = [cat_Products].[Product_Id]), 0) AS [Product_Ranking],
-			[Product_Price] - ([Product_Price] * ([Product_Disscount] / 100)) AS [Product_Price_Total],
+			[Product_Price] - ([Product_Price] * ([Product_Discount] / 100)) AS [Product_Price_Total],
 			CAST(
 					CASE
 						WHEN DATEDIFF(year, [Product_Creation_Date], GETDATE()) > 30
@@ -284,7 +354,8 @@ IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_NAME = 'vw_Sep
 		EXECUTE('
 		CREATE VIEW [dbo].[vw_Sepomex_Info]
 		AS
-		SELECT [d_codigo]
+		SELECT [Sepomex_Id]
+		    ,[d_codigo]
 			,[d_asenta]
 			,[D_mnpio]
 			,[d_estado]
@@ -314,7 +385,7 @@ IF NOT EXISTS (SELECT * FROM INFORMATION_SCHEMA.VIEWS WHERE TABLE_NAME = 'vw_Ord
 			,[Order_Creation_Date]
 			,[Order_Delivered_Date]
 			,[Order_Openpay_ChargeId]
-			,'' AS [Order_Payment_Status]
+			,'''' AS [Order_Payment_Status]
 			,[Order_Tracking_Id]
 		FROM [dbo].[cat_Orders]
 		INNER JOIN [dbo].[cat_Carts]

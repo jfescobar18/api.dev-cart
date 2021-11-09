@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="4d2608406552481791481b2be074b942" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.cat_About_Us_Sections" Width="1.5" PointX="5.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cat_Admin_Login" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cat_Carts" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cat_Configurations" Width="1.5" PointX="7.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cat_Coupons" Width="1.5" PointX="7.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cat_Notice_Privacy" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cat_Offers_Image" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cat_Orders" PointX="3" PointY="7" Width="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cat_Product_Galery_Images" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cat_Sepomex" Width="1.5" PointX="9.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cat_Slider_Images" Width="1.5" PointX="5.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cat_Social_Media" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cat_Categories" Width="1.5" PointX="0.75" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.cat_Reviews" Width="1.5" PointX="5.25" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.vw_Orders" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.vw_Sepomex_Info" Width="1.5" PointX="11.75" PointY="9.75" IsExpanded="true" />
+        <AssociationConnector ManuallyRouted="false" Association="Model.FK__cat_Order__Cart___38996AB5" />
+        <EntityTypeShape EntityType="Model.cat_Products" Width="1.5" PointX="3" PointY="1.5" />
+        <EntityTypeShape EntityType="Model.vw_Products" Width="1.5" PointX="8.375" PointY="11.75" />
+        <AssociationConnector Association="Model.FK__cat_Produ__Produ__02FC7413" />
+        <AssociationConnector Association="Model.FK__cat_Produ__Categ__7F2BE32F" />
+        <AssociationConnector Association="Model.FK__cat_Revie__Produ__04E4BC85" />
+        <EntityTypeShape EntityType="Model.cat_Specific_Rules" Width="1.5" PointX="0.75" PointY="12.75" />
+        <EntityTypeShape EntityType="Model.cat_Banks" Width="1.5" PointX="10.375" PointY="12.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

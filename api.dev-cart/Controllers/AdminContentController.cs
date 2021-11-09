@@ -216,6 +216,46 @@ namespace api.dev_cart.Controllers
         }
         #endregion
 
+        #region Notice Privacy
+        [HttpPost]
+        [Route("AdminContent/UpdateNoticePrivacy")]
+        public async Task<HttpResponseMessage> UpdateNoticePrivacy([FromBody] cat_Notice_Privacy json)
+        {
+            Dictionary<string, object> dict = new Dictionary<string, object>();
+            Entities entity = new Entities();
+            HttpStatusCode statusCode = HttpStatusCode.BadRequest;
+
+            try
+            {
+                var noticePrivacy = entity.cat_Notice_Privacy.SingleOrDefault(x => x.Notice_Privacy_Id == json.Notice_Privacy_Id);
+
+                noticePrivacy.Notice_Privacy_Title = json.Notice_Privacy_Title;
+                noticePrivacy.Notice_Privacy_Content = json.Notice_Privacy_Content;
+                entity.SaveChanges();
+
+                statusCode = HttpStatusCode.OK;
+                dict.Add("message", "Section updated successfully");
+            }
+            catch (Exception ex)
+            {
+                dict.Add("message", ex.Message);
+            }
+
+            await Task.CompletedTask;
+            return Request.CreateResponse(statusCode, dict);
+        }
+
+        [HttpGet]
+        [Route("AdminContent/GetNoticePrivacy")]
+        public async Task<List<cat_Notice_Privacy>> GetNoticePrivacy()
+        {
+            Entities entity = new Entities();
+
+            await Task.CompletedTask;
+            return entity.cat_Notice_Privacy.ToList();
+        }
+        #endregion
+
         #region Offers Image
         [HttpPost]
         [Route("AdminContent/UpdateOffersImage")]
@@ -294,5 +334,5 @@ namespace api.dev_cart.Controllers
             return suburbList;
         }
         #endregion
-    }
+    }   
 }

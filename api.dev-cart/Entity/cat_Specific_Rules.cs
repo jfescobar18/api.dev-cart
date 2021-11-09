@@ -12,9 +12,9 @@ namespace api.dev_cart.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class cat_Offers_Image
+    public partial class cat_Specific_Rules
     {
-        public int Offers_Banner_Id { get; set; }
-        public string Offers_Banner_Img { get; set; }
+        public int Specific_Rule_Id { get; set; }
+        public string Specific_Rule_Name { get; set; }
     }
 }

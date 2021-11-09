@@ -134,7 +134,7 @@ namespace api.dev_cart.Controllers
                 {
                     Product_Name = json.Product_Name,
                     Product_Price = json.Product_Price,
-                    Product_Disscount = json.Product_Disscount,
+                    Product_Discount = json.Product_Discount,
                     Category_Id = json.Category_Id,
                     Product_Img = "ProductImages/" + filenames[0],
                     Product_Description = json.Product_Description,
@@ -180,7 +180,7 @@ namespace api.dev_cart.Controllers
 
                 product.Product_Name = json.Product_Name;
                 product.Product_Price = json.Product_Price;
-                product.Product_Disscount = json.Product_Disscount;
+                product.Product_Discount = json.Product_Discount;
                 product.Category_Id = json.Category_Id;
                 product.Product_Description = json.Product_Description;
                 product.Product_Configurations = json.Product_Configurations;
@@ -296,7 +296,7 @@ namespace api.dev_cart.Controllers
             Entities entity = new Entities();
 
             await Task.CompletedTask;
-            return entity.vw_Products.Where(x => x.Product_Disscount != 0).OrderBy(x => x.Product_Creation_Date).ToList();
+            return entity.vw_Products.Where(x => x.Product_Discount != 0).OrderBy(x => x.Product_Creation_Date).ToList();
         }
 
         [HttpGet]

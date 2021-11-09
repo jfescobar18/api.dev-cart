@@ -152,73 +152,84 @@
     <Compile Include="Controllers\AdminCredentialsController.cs" />
     <Compile Include="Controllers\AdminProductController.cs" />
     <Compile Include="Controllers\ConfigurationsController.cs" />
+    <Compile Include="Controllers\AdminCouponController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\SocialMediaController.cs" />
     <Compile Include="Entity\cat_About_Us_Sections.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Admin_Login.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\cat_Banks.cs">
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Carts.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Categories.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Configurations.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Coupons.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Notice_Privacy.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Offers_Image.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Orders.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Products.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Product_Galery_Images.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Reviews.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Sepomex.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\cat_Slider_Images.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\CMS_Dev-Cart.Context.cs">
+    <Compile Include="Entity\cat_Social_Media.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\cat_Specific_Rules.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity\Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CMS_Dev-Cart.Context.tt</DependentUpon>
+      <DependentUpon>Model.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\CMS_Dev-Cart.cs">
+    <Compile Include="Entity\Model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Entity\CMS_Dev-Cart.Designer.cs">
+    <Compile Include="Entity\Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CMS_Dev-Cart.edmx</DependentUpon>
+      <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Entity\vw_Orders.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\vw_Products.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Entity\vw_Sepomex_Info.cs">
-      <DependentUpon>CMS_Dev-Cart.tt</DependentUpon>
+      <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -234,6 +245,7 @@
     <Compile Include="Models\TrackingInformation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ConfigurationUtils.cs" />
+    <Compile Include="Utils\CouponUtils.cs" />
     <Compile Include="Utils\CredentialUtils.cs" />
     <Compile Include="Utils\FileUtils.cs" />
     <Compile Include="Utils\MailingUtils.cs" />
@@ -241,15 +253,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
-    <Content Include="Entity\CMS_Dev-Cart.Context.tt">
+    <Content Include="Entity\Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CMS_Dev-Cart.edmx</DependentUpon>
-      <LastGenOutput>CMS_Dev-Cart.Context.cs</LastGenOutput>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Entity\CMS_Dev-Cart.tt">
+    <Content Include="Entity\Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CMS_Dev-Cart.edmx</DependentUpon>
-      <LastGenOutput>CMS_Dev-Cart.cs</LastGenOutput>
+      <DependentUpon>Model.edmx</DependentUpon>
+      <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -290,12 +302,12 @@
     <Folder Include="Views\Configuration\" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Entity\CMS_Dev-Cart.edmx">
+    <EntityDeploy Include="Entity\Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CMS_Dev-Cart.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Entity\CMS_Dev-Cart.edmx.diagram">
-      <DependentUpon>CMS_Dev-Cart.edmx</DependentUpon>
+    <Content Include="Entity\Model.edmx.diagram">
+      <DependentUpon>Model.edmx</DependentUpon>
     </Content>
     <None Include="packages.config" />
     <None Include="Properties\PublishProfiles\Busgarage.pubxml" />

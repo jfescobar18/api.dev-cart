@@ -12,9 +12,12 @@ namespace api.dev_cart.Entity
     using System;
     using System.Collections.Generic;
     
-    public partial class cat_Offers_Image
+    public partial class cat_Social_Media
     {
-        public int Offers_Banner_Id { get; set; }
-        public string Offers_Banner_Img { get; set; }
+        public int Social_Media_Id { get; set; }
+        public string Social_Media_Name { get; set; }
+        public string Social_Media_Awesome_Font { get; set; }
+        public string Social_Media_Url { get; set; }
+        public string Social_Media_Tab { get; set; }
     }
 }

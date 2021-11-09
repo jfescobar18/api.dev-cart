@@ -2,7 +2,7 @@
 <#@ include file="EF6.Utility.CS.ttinclude"#><#@
  output extension=".cs"#><#
 
-const string inputFile = @"CMS_Dev-Cart.edmx";
+const string inputFile = @"Model.edmx";
 var textTransform = DynamicTextTransformation.Create(this);
 var code = new CodeGenerationTools(this);
 var ef = new MetadataTools(this);
@@ -59,7 +59,7 @@ using System.Linq;
     public <#=code.Escape(container)#>()
         : base(ConnectionString())
     {
-		this.Configuration.ProxyCreationEnabled = false;
+        this.Configuration.ProxyCreationEnabled = false;
 <#
 if (!loader.IsLazyLoadingEnabled(container))
 {
@@ -87,7 +87,7 @@ foreach (var entitySet in container.BaseEntitySets.OfType<EntitySet>())
         throw new UnintentionalCodeFirstException();
     }
 
-	protected static string ConnectionString()
+    protected static string ConnectionString()
     {
         string dataSource = ConfigurationManager.AppSettings["DataSource"];
         string initialCatalog = ConfigurationManager.AppSettings["InitialCatalog"];

@@ -11,15 +11,16 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using Utils;
 
+
 namespace api.dev_cart.Controllers
 {
     [EnableCors(origins: "*", headers: "*", methods: "*")]
-    public class ConfigurationsController : ApiController
+    public class SocialMediaController : ApiController
     {
-        #region Configuration
+        #region Social Media
         [HttpPost]
-        [Route("Configurations/AddConfiguration")]
-        public async Task<HttpResponseMessage> AddConfiguration([FromBody] cat_Configurations json)
+        [Route("SocialMedia/AddSocialMedia")]
+        public async Task<HttpResponseMessage> AddSocialMedia([FromBody] cat_Social_Media json)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
             Entities entity = new Entities();
@@ -27,10 +28,19 @@ namespace api.dev_cart.Controllers
 
             try
             {
-                ConfigurationUtils.AddConfiguration(json.Configuration_Key, json.Configuration_Value);
+                var socialMedia = new cat_Social_Media()
+                {
+                    Social_Media_Name = json.Social_Media_Name,
+                    Social_Media_Awesome_Font = json.Social_Media_Awesome_Font,
+                    Social_Media_Url = json.Social_Media_Url,
+                    Social_Media_Tab = json.Social_Media_Tab
+                };
+
+                entity.cat_Social_Media.Add(socialMedia);
+                entity.SaveChanges();
 
                 statusCode = HttpStatusCode.OK;
-                dict.Add("message", "Configuration added successfully");
+                dict.Add("message", "Section added successfully");
             }
             catch (Exception ex)
             {
@@ -42,8 +52,8 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpPost]
-        [Route("Configurations/UpdateConfiguration")]
-        public async Task<HttpResponseMessage> UpdateConfiguration([FromBody] cat_Configurations json)
+        [Route("SocialMedia/UpdateSocialMedia")]
+        public async Task<HttpResponseMessage> UpdateSocialMedia([FromBody] cat_Social_Media json)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
             Entities entity = new Entities();
@@ -51,10 +61,16 @@ namespace api.dev_cart.Controllers
 
             try
             {
-                ConfigurationUtils.EditConfiguration(json.Configuration_Key, json.Configuration_Value);
+                var socialMedia = entity.cat_Social_Media.SingleOrDefault(x => x.Social_Media_Id == json.Social_Media_Id);
+
+                socialMedia.Social_Media_Name = json.Social_Media_Name;
+                socialMedia.Social_Media_Awesome_Font = json.Social_Media_Awesome_Font;
+                socialMedia.Social_Media_Url = json.Social_Media_Url;
+                socialMedia.Social_Media_Tab = json.Social_Media_Tab;
+                entity.SaveChanges();
 
                 statusCode = HttpStatusCode.OK;
-                dict.Add("message", "Configuration updated successfully");
+                dict.Add("message", "Section updated successfully");
             }
             catch (Exception ex)
             {
@@ -66,8 +82,8 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpPost]
-        [Route("Configurations/DeleteConfiguration")]
-        public async Task<HttpResponseMessage> DeleteConfiguration([FromBody] cat_Configurations json)
+        [Route("SocialMedia/DeleteSocialMedia")]
+        public async Task<HttpResponseMessage> DeleteSocialMedia([FromBody] cat_Social_Media json)
         {
             Dictionary<string, object> dict = new Dictionary<string, object>();
             Entities entity = new Entities();
@@ -75,7 +91,10 @@ namespace api.dev_cart.Controllers
 
             try
             {
-                ConfigurationUtils.DeleteConfiguration(json.Configuration_Key);
+                var socialMedia = entity.cat_Social_Media.SingleOrDefault(x => x.Social_Media_Id == json.Social_Media_Id);
+
+                entity.cat_Social_Media.Remove(socialMedia);
+                entity.SaveChanges();
 
                 statusCode = HttpStatusCode.OK;
                 dict.Add("message", "Section deleted successfully");
@@ -90,23 +109,13 @@ namespace api.dev_cart.Controllers
         }
 
         [HttpGet]
-        [Route("Configurations/GetConfigurations")]
-        public async Task<List<cat_Configurations>> GetConfigurations()
+        [Route("SocialMedia/GetSocialMedias")]
+        public async Task<List<cat_Social_Media>> GetSocialMedias()
         {
             Entities entity = new Entities();
 
             await Task.CompletedTask;
-            return entity.cat_Configurations.ToList();
-        }
-
-        [HttpGet]
-        [Route("Configurations/GetConfiguration/{Configuration_Key}")]
-        public async Task<cat_Configurations> GetConfiguration(string Configuration_Key)
-        {
-            Entities entity = new Entities();
-
-            await Task.CompletedTask;
-            return entity.cat_Configurations.FirstOrDefault(x => x.Configuration_Key == Configuration_Key);
+            return entity.cat_Social_Media.ToList();
         }
         #endregion
     }
